@@ -38,14 +38,19 @@ gulp.task('js', function() {
 
 gulp.task('compass', function() {
   return gulp.src(sources.sass)
-    .pipe(compass({
-      sass: 'app/sass',
-      css: outputDir + 'css',
-      image: 'app/media/img',
-      require: ['susy'],
-      style: sassStyle
-    })
-    .on('error', gutil.log))
+    .pipe(
+        compass({
+          sass: 'app/sass',
+          css: outputDir + 'css',
+          image: 'app/media/img',
+          require: ['susy'],
+          style: sassStyle
+        })
+        .on("error", function(err) {
+         gutil.log(err);
+         this.emit("end");
+        })
+    )
     //.pipe(gulp.dest(outputDir + 'css'))
     .pipe(connect.reload())
 });

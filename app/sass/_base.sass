@@ -1,7 +1,15 @@
-// _base.scss
-// ==============
+// ==========================================================================
+// Base
+// ==========================================================================
+
+html
+    height: 100%
 
 body
-    font-family: $font-family-body
-    font-size: $font-size-body
-    font-weight: $font-weight-body
+    background: $black
+    @include background-image(linear-gradient(to bottom, #111, #222))
+
+    font-family: $font-family-base
+    font-size: $font-size-base
+    font-weight: $font-weight-base
+    color: $font-color-default
