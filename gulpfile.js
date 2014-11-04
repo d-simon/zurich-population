@@ -21,8 +21,8 @@ if (env === 'production') {
 }
 
 var sources = {
-    js: ['app/components/angular/angular.js','app/modules/*.js'],
-    sass: ['app/sass/main.scss'],
+    js: ['app/components/angular/angular.min.js','app/modules/**/*.js'],
+    sass: ['app/sass/main.sass'],
     html: [outputDir + '*.html'],
     json: [outputDir + 'js/*.json']
 };
@@ -90,7 +90,7 @@ gulp.task('lint', function() {
 
 gulp.task('watch', function() {
   gulp.watch(sources.js, ['lint', 'js']);
-  gulp.watch('app/sass/*.scss', ['compass']);
+  gulp.watch('app/sass/*.sass', ['compass']);
   gulp.watch('app/*.html', ['html']);
   gulp.watch('app/data/*.json', ['json']);
   gulp.watch('app/media/*.*', ['images']);
