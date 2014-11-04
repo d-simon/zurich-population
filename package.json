@@ -20,8 +20,7 @@
     "gulp": "^3.6.2",
     "gulp-util": "^2.2.14",
     "gulp-concat": "^2.2.0",
-    "gulp-browserify": "^0.5.0",
-    "gulp-compass": "^1.1.9",
+    "gulp-compass": "^2.0.1",
     "gulp-connect": "^2.0.5",
     "gulp-if": "^1.1.0",
     "gulp-uglify": "^0.3.0",
@@ -32,7 +31,6 @@
   },
   "dependencies": {
     "gulp": "^3.8.10",
-    "gulp-browserify": "^0.5.0",
     "gulp-compass": "^2.0.1",
     "gulp-util": "^3.0.1"
   }

@@ -1,6 +1,5 @@
 var gulp = require('gulp'),
     gutil = require('gulp-util'),
-    browserify = require('gulp-browserify'),
     compass = require('gulp-compass'),
     connect = require('gulp-connect'),
     gulpif = require('gulp-if'),
@@ -42,6 +41,7 @@ gulp.task('compass', function() {
       sass: 'app/sass',
       css: outputDir + 'css',
       image: 'app/media/img',
+      require: ['susy'],
       style: sassStyle
     })
     .on('error', gutil.log))
