@@ -8,7 +8,8 @@ var gulp = require('gulp'),
     jsonminify = require('gulp-jsonminify'),
     imagemin = require('gulp-imagemin'),
     pngcrush = require('imagemin-pngcrush'),
-    concat = require('gulp-concat');
+    concat = require('gulp-concat'),
+    jshint = require('gulp-jshint');
 
 var env = process.env.NODE_ENV || 'development',
     outputDir = 'builds/development/',
@@ -81,9 +82,14 @@ gulp.task('json', function() {
     .pipe(connect.reload())
 });
 
+gulp.task('lint', function() {
+  return gulp.src('app/modules/*.js')
+    .pipe(jshint())
+    .pipe(jshint.reporter('jshint-stylish'));
+});
 
 gulp.task('watch', function() {
-  gulp.watch(sources.js, ['js']);
+  gulp.watch(sources.js, ['lint', 'js']);
   gulp.watch('app/sass/*.scss', ['compass']);
   gulp.watch('app/*.html', ['html']);
   gulp.watch('app/data/*.json', ['json']);
@@ -91,5 +97,5 @@ gulp.task('watch', function() {
 });
 
 
-gulp.task('default', ['html', 'json', 'js', 'compass', 'images', 'connect', 'watch']);
+gulp.task('default', ['html', 'lint', 'json', 'js', 'compass', 'images', 'connect', 'watch']);
 

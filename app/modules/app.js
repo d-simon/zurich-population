@@ -4,4 +4,4 @@
     angular.module('zuriPopApp', [])
     .run();
 
-}())
+}());
