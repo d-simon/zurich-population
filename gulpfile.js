@@ -21,7 +21,7 @@ if (env === 'production') {
 }
 
 var sources = {
-    js: ['app/modules/*.js'],
+    js: ['app/components/angular/angular.js','app/modules/*.js'],
     sass: ['app/sass/main.scss'],
     html: [outputDir + '*.html'],
     json: [outputDir + 'js/*.json']
@@ -31,7 +31,6 @@ var sources = {
 gulp.task('js', function() {
   return gulp.src(sources.js)
     .pipe(concat('app.js'))
-    .pipe(browserify())
     .pipe(gulpif(env === 'production', uglify()))
     .pipe(gulp.dest(outputDir))
     .pipe(connect.reload())
