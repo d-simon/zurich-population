@@ -7,132 +7,96 @@
                 scope: {
                     'timelineData': '='
                 },
-                template: '<highchart config="highchartsConf"></highchart>',
+                template: '<highchart config="timelineConf"></highchart>',
                 link: function postLink (scope, element, attrs) {
 
-                    scope.highchartsConf = {
-                        chart: {
-                            backgroundColor: null,
-                            plotBackgroundColor: null,
-                            plotBorderWidth: null,
-                            plotShadow: false,
-                            borderWidth: 0,
-                            spacingTop: 0,
-                            spacingBottom: 0
-                        },
-                        colors: ['#39B341', '#16A720', '#098A11',  '#098A11',  '#007207',  '#005406'],
-                        credits: {
-                            enabled: false
-                        },
-                        legend: {
-                            align: 'right',
-                            verticalAlign: 'top',
-                            layout: 'vertical',
-                            borderWidth: 0,
-                            floating: true,
-                            itemStyle: {
-                                color: '#000'
+                    scope.timelineConf = {
+                            title: {
+                                text: ' ',
                             },
-                            itemHoverStyle: {
-                                color: '#000'
+                            credits: {
+                                enabled: false
                             },
-                            itemMarginBottom: 10,
-                            y: 100,
-                            x: -120
-                        },
-                        plotOptions: {
-                            pie: {
-                                point: {
-                                    events: {
-                                        legendItemClick: function() {
-                                            this.select();
-                                            //elm.tooltip.refresh(this);
-                                            return false;
-                                        },
-                                        mouseOver: function() {
-                                            this.select();
-                                            //elm.tooltip.refresh(this);
-                                            return false;
+                            plotOptions: {
+                                line: {
+                                    enableMouseTracking: false, // disable hover events
+                                    marker: {
+                                        enabled: false,
+                                        states: {
+                                            hover: {
+                                                enabled: false
+                                            }
+                                        }
+                                    },
+                                    states: {
+                                        hover: {
+                                            enabled: false,
                                         }
                                     }
                                 },
+                            },
+                            xAxis: {
+                                categories: ['1985', '1986', '1987', '1988', '1989', '1990', '1991', '1992', '1993', '1994', '1995', '1996', '1997', '1998', '1999', '2000', '2001', '2002', '2003', '2004', '2005', '2005', '2006', '2007', '2008', '2009', '2010', '2011', '2012', '2013', '2014', '2015'],
+                                lineWidth: 0,
+                                minorGridLineWidth: 0,
+                                lineColor: 'transparent',
+                                labels: {
+                                   enabled: false
+                                },
+                                minorTickLength: 0,
+                                tickLength: 0
+                            },
+                            yAxis: {
+                                lineWidth: 0,
+                                minorGridLineWidth: 0,
+                                lineColor: 'transparent',
+                                labels: {
+                                   enabled: false
+                                },
+                                minorTickLength: 0,
+                                tickLength: 0,
+                                gridLineWidth: 0,
+                                title: {
+                                    text: null
+                                }
+                            },
+                            tooltip: {
+                                enabled: true,
+                                dontHideOnMouseOut: true,
+                                borderRadius: 0,
                                 borderWidth: 0,
-                                borderColor: 'rgba(0,0,0,0)',
-                                showInLegend: true
+                                backgroundColor: null,
+                                shadow: false,
+                                useHTML: true,
+                                style: {
+                                    padding: 0
+                                },
+                                headerFormat: '<div class="timeline-label">{point.key}</div>',
+                                pointFormat: '',
+                                footerFormat: '',
+
+                                positioner: function(boxWidth, boxHeight, point) {
+                                    return {x:point.plotX - 5,y:point.plotY - 50};
+                                }
                             },
-                            series: {
+                            exporting: {
+                                enabled: false
+                            },
+                            series: [{
                                 animation: false,
-                                dataLabels: {
-                                    enabled: false,
-                                    style: {
-                                        color: '#fff',
-                                        fontFamily: '"Exo 2", Helvetica Neue, Helvetica, Arial, sans-serif',
-                                        fontSize: '13px',
-                                        fontWeight: 'bold'
-                                    },
-                                    format: '{point.percentage}%',
-                                    useHTML: true
-                                },
-                                states: {
-                                    hover: {
-                                        enabled: false
-                                    }
-                                },
-                            }
-                        },
-                        series: [{
-                            type: 'pie',
-                            data: [
-                                ["Red", 2],
-                                ["Yellow", 5],
-                                ["Green", 3]
-                            ],
-                            center: ['30%'],
-                            startAngle: 5,
-                            endAngle: 175,
-                            name: 'foo',
-                            innerSize: '80%',
-                            size: '50%',
-                            showInLegend: true,
-                            borderWidth: 0
-                        },
-                        {
-                            type: 'pie',
-                            linkedTo: ':previous',
-                            data: [
-                                ["Red", 1],
-                                ["Yellow", 2],
-                                ["Green", 7]
-                            ],
-                            center: ['30%'],
-                            startAngle: 185,
-                            endAngle: 355,
-                            name: 'bar',
-                            innerSize: '80%',
-                            size: '50%',
-                            showInLegend: false,
-                            borderWidth: 0
-                        }],
-                        title: {
-                            margin: 0,
-                            style: {
-                                color: '#fff',
-                                fontFamily: '"Exo 2", Helvetica Neue, Helvetica, Arial, sans-serif',
-                                fontSize: '13px',
-                                fontWeight: 'bold'
-                            },
-                            text: '',
-                            useHTML: true
-                        },
-                        tooltip: {
-                            enabled: false
-                        },
-                        exporting: {
-                            enabled: false
-                        }
+                                data: [1122778, 1127674, 1133362, 1140100, 1145522, 1154681, 1166039, 1158664, 1162120, 1167087, 1172970, 1176347, 1178394, 1184002, 1193789, 1206708, 1223101, 1237920, 1245683, 1255645, 1264141, 1274384, 1300545, 1326775, 1344866, 1371007, 1390124, 1406083, 1421895],
+                                showInLegend: false
+                            }]
+
+
+                            // --------------------------------
+                            // set default label position
+                            // --------------------------------
+                            // chart.tooltip.refresh(chart.series[0].points[2]);
+
+
                     };
                 }
             }
         });
-
 }());
