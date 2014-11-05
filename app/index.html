@@ -8,7 +8,62 @@
     <link href='http://fonts.googleapis.com/css?family=Exo+2:700,600,200,300,400,500,100' rel='stylesheet' type='text/css'>
 </head>
 <body>
-    <div ng-app="zuriPopApp"></div>
+    <div ng-app="zuriPopApp">
+        <timeline data="bla"></timeline>
+    </div>
+    <div class="">
+        <header class="header">
+            <h1 class="header-title">Zurich Population</h1>
+            <nav class="scenarioNav">
+                <button type="button" class="scenarioNav-btn">Geschichte</button>
+                <button type="button" class="scenarioNav-btn">Scenario</button>
+            </nav>
+        </header>
+        <main class="main">
+            <div class="mapViewer">
+                <!-- MapViewer -->
+            </div>
+            <aside class="sidebar">
+                <div class="timeline">
+                    <!-- Timeline Chart -->
+                </div>
+                <div class="region">
+                    <div class="region-info">
+                        <h2 class="region-title">Zürich</h2>
+                        <div class="region-detail">
+                            <dl class="margins-removed">
+                                <dt>Bevölkerung</dt>
+                                <dd>383'708 Pers.</dd>
+                                <dt>Dichte</dt>
+                                <dd>4'365.3 Pers./KM²</dd>
+                                <dt>Zunahme</dt>
+                                <dd><i class="icon icon-arrow-up"></i> 1.0% – 3'793 Pers.</dd>
+                            </dl>
+                        </div>
+                    </div>
+                    <div class="region-map">
+                            <!-- SVG Map -->
+                    </div>
+                    <div class="region-chart chart">
+                        <h3 class="chart-title">Flächenverteilung</h3>
+                        <div class="chart-container">
+                            <!-- Donut Chart -->
+                        </div>
+                    </div>
+                    <div class="region-chart chart">
+                        <h3 class="chart-title">Wohnungsverteilung</h3>
+                        <div class="chart-container">
+                            <!-- Donut Chart -->
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </main>
+        <footer class="footer">
+            <span class="footer-info">ZHdK 2014</span>
+            <span class="footer-info"><b class="footer-info--label">Source</b> Statistisches Amt des Kt. Zürich, Hektardaten Bev. 2010/BA für Statistik, eidg. Volkszählungen 1990 und 2000</span>
+        </footer>
+    </div>
     <script src="app.js" type="text/javascript" charset="utf-8"></script>
 </body>
 </html>
