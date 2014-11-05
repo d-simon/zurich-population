@@ -2,5 +2,5 @@
 .sass-cache/**
 node_modules/**
 builds/**
-app/components/**
+app/components/bower/**
 npm-debug.log

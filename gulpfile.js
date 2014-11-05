@@ -21,10 +21,17 @@ if (env === 'production') {
 }
 
 var sources = {
-    js: ['app/components/angular/angular.min.js','app/modules/**/*.js'],
+    js: [
+            'app/components/bower/angular/angular.js',
+            'app/components/bower/jquery/dist/jquery.js',
+            'app/components/bower/highcharts/highcharts.src.js',
+            'app/components/bower/highcharts-ng/dist/highcharts-ng.js',
+            'app/components/custom/**/*.js',
+            'app/modules/**/*.js'
+        ],
     sass: ['app/sass/main.sass'],
-    html: [outputDir + '*.html'],
-    json: [outputDir + 'js/*.json']
+    html: ['app/*.html'],
+    json: ['app/data/*.json']
 };
 
 
