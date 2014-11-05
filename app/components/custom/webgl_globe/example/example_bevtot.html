@@ -1,0 +1,243 @@
+
+<!DOCTYPE HTML>
+<html lang="en">
+  <head>
+    <title>WebGL Globe</title>
+    <meta charset="utf-8">
+    <style type="text/css">
+      html {
+        height: 100%;
+      }
+      body {
+        margin: 0;
+        padding: 0;
+        background: #000000 url(loading.gif) center center no-repeat;
+        color: #ffffff;
+        font-family: sans-serif;
+        font-size: 13px;
+        line-height: 20px;
+        height: 100%;
+      }
+
+      #info {
+
+        font-size: 11px;
+        position: absolute;
+        bottom: 5px;
+        background-color: rgba(0,0,0,0.8);
+        border-radius: 3px;
+        right: 10px;
+        padding: 10px;
+
+      }
+
+      #currentInfo {
+        width: 90px;
+        position: absolute;
+        left: 20px;
+        top: 63px;
+
+        background-color: rgba(0,0,0,0.2);
+
+        border-top: 1px solid rgba(255,255,255,0.4);
+        padding: 10px;
+      }
+
+      a {
+        color: #aaa;
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+
+      .bull {
+        padding: 0 5px;
+        color: #555;
+      }
+
+      #title {
+        position: absolute;
+        top: 20px;
+        width: 270px;
+        left: 20px;
+        background-color: rgba(0,0,0,0.2);
+        border-radius: 3px;
+        font: 20px Georgia;
+        padding: 10px;
+      }
+
+      .year {
+        font: 16px Georgia;
+        line-height: 26px;
+        height: 30px;
+        text-align: center;
+        float: left;
+        width: 90px;
+        color: rgba(255, 255, 255, 0.4);
+
+        cursor: pointer;
+        -webkit-transition: all 0.1s ease-out;
+      }
+
+      .year:hover, .year.active {
+        font-size: 23px;
+        color: #fff;
+      }
+
+      #ce span {
+        display: none;
+      }
+
+      #ce {
+        width: 107px;
+        height: 55px;
+        display: block;
+        position: absolute;
+        bottom: 15px;
+        left: 20px;
+        background: url(ce.png);
+      }
+
+      #container {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+      }
+
+
+    </style>
+  </head>
+  <body>
+
+  <div id="container"></div>
+
+  <div id="info">
+    <strong><a href="http://www.chromeexperiments.com/globe">WebGL Globe</a></strong> <span class="bull">&bull;</span> Created by the Google Data Arts Team <span class="bull">&bull;</span> Data acquired from <a href="http://sedac.ciesin.columbia.edu/gpw/">SEDAC</a>
+  </div>
+
+  <div id="currentInfo">
+    <span id="year1990" class="year">1990</span>
+    <span id="year1991" class="year">1991</span>
+    <span id="year1992" class="year">1992</span>
+    <span id="year1993" class="year">1993</span>
+    <span id="year1994" class="year">1994</span>
+    <span id="year1995" class="year">1995</span>
+    <span id="year1996" class="year">1996</span>
+    <span id="year1997" class="year">1997</span>
+    <span id="year1998" class="year">1998</span>
+    <span id="year1999" class="year">1999</span>
+    <span id="year2000" class="year">2000</span>
+    <span id="year2001" class="year">2001</span>
+    <span id="year2002" class="year">2002</span>
+    <span id="year2003" class="year">2003</span>
+    <span id="year2004" class="year">2004</span>
+    <span id="year2005" class="year">2005</span>
+    <span id="year2006" class="year">2006</span>
+    <span id="year2007" class="year">2007</span>
+    <span id="year2008" class="year">2008</span>
+    <span id="year2009" class="year">2009</span>
+    <span id="year2010" class="year">2010</span>
+  </div>
+
+  <div id="title">
+    World Population
+  </div>
+
+  <a id="ce" href="http://www.chromeexperiments.com/globe">
+    <span>This is a Chrome Experiment</span>
+  </a>
+
+  <script type="text/javascript" src="../../../bower/three.js/three.js"></script>
+  <!-- <script type="text/javascript" src="../components/three.js/ThreeExtras.js"></script> -->
+  <script type="text/javascript" src="../../../bower/requestAnimationFrame/app/requestAnimationFrame.js"></script>
+  <script type="text/javascript" src="../../webgl_detector.js"></script>
+  <script type="text/javascript" src="tween.js"></script>
+  <script type="text/javascript" src="../webgl_globe_mod.js"></script>
+  <script type="text/javascript">
+
+    if(!Detector.webgl){
+      Detector.addGetWebGLMessage();
+    } else {
+
+      // var years = ['1990','2000','2010'];
+      var years = ["1990","1991","1992","1993","1994","1995","1996","1997","1998","1999","2000","2001","2002","2003","2004","2005","2006","2007","2008","2009","2010"];
+      var container = document.getElementById('container');
+      var globe = new DAT.Globe(container,
+          {
+              imgDir: './',
+              colorFn: function(x) {
+
+                    var c = new THREE.Color(),
+                        hue = (x < 0.001) ? 1 : ( 0.6 - ( x * 1.5 ) );
+
+                    c.setHSL( hue , 1.0, 0.5 );
+                    return c;
+
+                    // var c = new THREE.Color();
+                    // c.setHSL( ( 0.6 - ( x * 0.5 ) ), 1.0, 0.5 );
+                    // return c;
+                }
+            });
+      console.log(globe);
+      var i, tweens = [];
+
+      var settime = function(globe, t) {
+        return function() {
+          new TWEEN.Tween(globe).to({time: t/years.length},500).easing(TWEEN.Easing.Cubic.EaseOut).start();
+          var y = document.getElementById('year'+years[t]);
+          if (y.getAttribute('class') === 'year active') {
+            return;
+          }
+          var yy = document.getElementsByClassName('year');
+          for(i=0; i<yy.length; i++) {
+            yy[i].setAttribute('class','year');
+          }
+          y.setAttribute('class', 'year active');
+        };
+      };
+
+      for(var i = 0; i<years.length; i++) {
+        var y = document.getElementById('year'+years[i]);
+        y.addEventListener('mouseover', settime(globe,i), false);
+      }
+
+      var xhr;
+      TWEEN.start();
+
+
+      xhr = new XMLHttpRequest();
+      xhr.open('GET', '../../../../data/bevtot_parcels_5_flat_low.min.json', true);
+      xhr.onreadystatechange = function(e) {
+        if (xhr.readyState === 4) {
+          if (xhr.status === 200) {
+            var data = JSON.parse(xhr.responseText);
+            window.data = data;
+            for (i=0;i<data.length;i++) {
+              globe.addData(data[i][1], {format: 'magnitude', name: data[i][0], animated: true});
+            }
+            globe.createPoints();
+            settime(globe,0)();
+            globe.animate();
+          }
+        }
+      };
+      xhr.send(null);
+    }
+
+  </script>
+<script type="text/javascript">
+
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-54474042-1', 'auto');
+  ga('send', 'pageview');
+
+
+</script>
+  </body>
+
+</html>

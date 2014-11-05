@@ -92,7 +92,7 @@ DAT.Globe = function(container, opts) {
   var zoomSpeed = 50;
 
   var mouse = { x: 0, y: 0 }, mouseOnDown = { x: 0, y: 0 };
-  var rotation = { x: 0, y: Math.PI * 0.25 },
+  var rotation = { x: 0, y: Math.PI * 0.125 },
       target = { x: Math.PI*3/2, y: Math.PI / 6.0 },
       targetOnDown = { x: 0, y: 0 };
 
@@ -292,8 +292,8 @@ DAT.Globe = function(container, opts) {
       // CUSTOM
       // Shift geometry to center
       this.points.rotation.x = 0.5 * Math.PI;
-      this.points.translateY(-150);
-      this.points.translateX(-70);
+      this.points.translateY(-180);
+      this.points.translateX(-90);
 
 
       scene.add(this.points);
@@ -309,7 +309,7 @@ DAT.Globe = function(container, opts) {
     // Flatten view (from globe)
 
 
-    var phi = (90 - lat); // * Math.PI / 180;
+    var phi = (lat + 90); // * Math.PI / 180;
     var theta = (180 - lng); // * Math.PI / 180;
 
     point.position.x = phi;   // 200 * Math.sin(phi) * Math.cos(theta);
@@ -434,7 +434,7 @@ DAT.Globe = function(container, opts) {
     // Block Y rotation
 
     rotation.x += (target.x - rotation.x) * 0.1;
-    // rotation.y += (target.y - rotation.y) * 0.1;
+    rotation.y += (target.y - rotation.y) * 0.1;
     distance += (distanceTarget - distance) * 0.3;
 
     camera.position.x = distance * Math.sin(rotation.x) * Math.cos(rotation.y);
