@@ -7,6 +7,7 @@
         'config',
         'zuriPopApp.common',
 
+        'zuriPopApp.timeline'
     ])
     .config(['$httpProvider', function ($httpProvider) {
         $httpProvider.defaults.cache = true;
