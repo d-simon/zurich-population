@@ -6,7 +6,6 @@
             var service = {},
                 url = Config.data.url;
 
-
             service.getGemeindeKeys = function () {
                 return $http.get(url + '/gemeindenr_zh.json');
             };
@@ -20,8 +19,14 @@
             };
 
             service.getGlobeData = function () {
-                return $http.get(url +'/bevtot_parcels_10_flat.min.json');
+                return $http.get(url +'/bevtot_parcels_5_flat.min.json');
             };
+
+            service.getIndikatorDaten = function () {
+                return $http.get(url +'/indikatoren_zh_gemeinden.json');
+            };
+
+            // service.getWohnungs
 
             return service;
         }]);

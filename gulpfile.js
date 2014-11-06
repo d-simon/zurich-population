@@ -29,10 +29,13 @@ var sources = {
             'app/components/bower/tweenjs/build/tween.min.js',
             'app/components/bower/threejs/build/three.min.js',
             'app/components/bower/highcharts/highcharts.src.js',
-            'app/components/bower/highcharts-ng/dist/highcharts-ng.js',
+            // 'app/components/bower/highcharts-ng/dist/highcharts-ng.js',
             'app/components/bower/requestAnimationFrame/app/requestAnimationFrame.js'
     ],
     jsCustom: [
+            'app/components/custom/lodash-mixins.js',
+            'app/components/custom/highcharts-ng-mod.js',
+            'app/components/custom/highcharts-tooltips-options.js',
             'app/components/custom/webgl_globe/webgl_globe_mod.js',
             'app/components/custom/webgl_detector.js',
             'app/components/custom/start.tween.js'
@@ -65,11 +68,10 @@ gulp.task('compass', function() {
           style: sassStyle
         })
         .on("error", function(err) {
-         gutil.log(err);
-         this.emit("end");
+          gutil.log(err);
+          this.emit("end");
         })
     )
-    //.pipe(gulp.dest(outputDir + 'css'))
     .pipe(connect.reload())
 });
 
@@ -106,14 +108,14 @@ gulp.task('json', function() {
 });
 
 gulp.task('lint', function() {
-  return gulp.src('app/modules/*.js')
+  return gulp.src(['app/modules/*.js', 'app/app.js'].concat(sources.jsCustom))
     .pipe(jshint())
     .pipe(jshint.reporter('jshint-stylish'));
 });
 
 gulp.task('watch', function() {
   gulp.watch(sources.js, ['lint', 'js']);
-  gulp.watch('app/sass/*.sass', ['compass']);
+  gulp.watch('app/sass/**/*.sass', ['compass']);
   gulp.watch('app/*.html', ['html']);
   gulp.watch('app/data/*.json', ['json']);
   gulp.watch('app/media/*.*', ['images']);

@@ -50,6 +50,7 @@
             });
 
         $(document).mousewheel(function(event) {
+            event.preventDefault();
             var year = _.max([1990, _.min([2010, $rootScope.state.year + (event.deltaY*event.deltaFactor)/100])]);
             $rootScope.safeApply(function () {
                 if (year !== $rootScope.state.year) $rootScope.state.year = year;

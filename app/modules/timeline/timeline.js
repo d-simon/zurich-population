@@ -8,12 +8,18 @@
                     'timelineData': '='
                 },
                 controller: 'timelineController',
-                template: '<highchart config="timelineConf"></highchart>'
+                template: '<highchart config="timelineConf" chart-obj="chartObj"></highchart>'
             }
         })
-        .controller('timelineController', ['$scope', function ($scope) {
+        .controller('timelineController', ['$scope', '$rootScope', function ($scope, $rootScope) {
+            $scope.chartObj = {};
             $scope.timelineConf = {
                 options: {
+                    chart: {
+                        width: 400,
+                        height: 300,
+                        marginTop: 50
+                    },
                     credits: {
                         enabled: false
                     },
@@ -76,7 +82,7 @@
                         footerFormat: '',
 
                         positioner: function(boxWidth, boxHeight, point) {
-                            return {x:point.plotX - 5,y:point.plotY - 50};
+                            return {x:point.plotX - 5,y:point.plotY /*-50*/};
                         }
                     },
                     exporting: {
@@ -92,10 +98,38 @@
                     showInLegend: false
                 }]
 
-                // --------------------------------
-                // set default label position
-                // --------------------------------
-                // chart.tooltip.refresh(chart.series[0].points[2]);
             };
+
+            $scope.$watch('chartObj', function () {
+                console.log($scope.chartObj);
+            });
+
+            $scope.$watch('chartObj.tick', function () {
+                if ($scope.chartObj.tooltip && $scope.chartObj.series.length && $scope.chartObj.series[0].points.length) {
+                    updateTooltip();
+                }
+            });
+
+            $rootScope.$watch('state.year', function (newVal) {
+                if ($scope.chartObj.tooltip && $scope.chartObj.series.length && $scope.chartObj.series[0].points.length) {
+                    updateTooltip();
+                }
+            });
+
+            function normalizeVal (val, max, min) {
+                return _.max([min, _.min([max,Math.round(val)])]);
+            }
+
+            function updateTooltip () {
+                var chartPoints = $scope.chartObj.series[0].points;
+                var normalizedValue = normalizeVal($rootScope.state.year, $rootScope.state.maxYear, $rootScope.state.minYear);
+                var point = _.deepFindKeyValLimited(chartPoints, 'category', ''+normalizedValue, 2);
+                if (point.length) {
+                    $scope.chartObj.tooltip.refresh(point[0]);
+                } else {
+                    console.log('WARNING: No point found in tooltip for year: ', normalizedValue);
+                }
+            }
+
         }]);
 }());
