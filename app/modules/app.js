@@ -28,8 +28,8 @@
         };
 
         $rootScope.state = {
-            year: 1990,
-            minYear: 1990,
+            year: 2000,
+            minYear: 1991,
             maxYear: 2010,
             location: false,  // false|int             BFS-ID
             mode: 'default'   // 'default'|'scenario'  Map Mode

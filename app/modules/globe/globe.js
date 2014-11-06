@@ -14,7 +14,8 @@
                     } else {
                         $scope.globe = new DAT.Globe($element[0], {
                             imgDir: './',
-                            invert: 'x',
+                            // invert: 'x',
+                            distanceTarget: 400,
                             zoomDisabled: true
                         });
                     }
@@ -52,7 +53,7 @@
                         });
                     }
                     $scope.globe.createPoints();
-                    $scope.setTime($scope.globe, 19, maxYearT)();
+                    $scope.setTime($scope.globe, $rootScope.state.year - $rootScope.state.minYear, maxYearT)();
                     $scope.globe.animate();
                     inited = true;
                 });

@@ -97,7 +97,7 @@ DAT.Globe = function(container, opts) {
       target = { x: Math.PI*3/2, y: Math.PI / 6.0 },
       targetOnDown = { x: 0, y: 0 };
 
-  var distance = 10000, distanceTarget = 500;
+  var distance = opts.distanceTarget || 10000, distanceTarget = opts.distanceTarget || 500;
   var padding = 40;
   var PI_HALF = Math.PI / 2;
 
@@ -438,10 +438,11 @@ DAT.Globe = function(container, opts) {
     distance += (distanceTarget - distance) * 0.3;
 
     camera.position.x = distance * Math.sin(rotation.x) * Math.cos(rotation.y);
-    camera.position.y = distance * Math.sin(rotation.y);
+    camera.position.y = /*-100 +*/ distance * Math.sin(rotation.y);
     camera.position.z = distance * Math.cos(rotation.x) * Math.cos(rotation.y);
 
     camera.lookAt(mesh.position);
+    camera.rotation.y -= Math.PI*0.05;
 
     renderer.render(scene, camera);
   }
