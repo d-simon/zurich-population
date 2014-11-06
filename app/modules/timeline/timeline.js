@@ -82,7 +82,7 @@
                         footerFormat: '',
 
                         positioner: function(boxWidth, boxHeight, point) {
-                            return {x:point.plotX - 5,y:point.plotY /*-50*/};
+                            return {x:point.plotX - 5,y:point.plotY -10};
                         }
                     },
                     exporting: {

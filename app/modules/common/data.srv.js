@@ -26,7 +26,9 @@
                 return $http.get(url +'/indikatoren_zh_gemeinden.json');
             };
 
-            // service.getWohnungs
+            service.getAreaWhgDaten = function () {
+                return $http.get(url +'/Area_and_Whg.min.json');
+            };
 
             return service;
         }]);

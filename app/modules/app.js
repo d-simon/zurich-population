@@ -8,7 +8,8 @@
         'zuriPopApp.common',
 
         'zuriPopApp.globe',
-        'zuriPopApp.timeline'
+        'zuriPopApp.timeline',
+        'zuriPopApp.donut'
     ])
     .config(['$httpProvider', function ($httpProvider) {
         $httpProvider.defaults.cache = true;
@@ -37,6 +38,7 @@
         dataService.getGemeindeKeys()
             .success(function successCallback (data) {
                 console.log(data);
+                $rootScope.areaData = data;
             });
 
         dataService.getPopulationKanton()
