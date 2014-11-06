@@ -148,12 +148,12 @@
     <span>This is a Chrome Experiment</span>
   </a>
 
-  <script type="text/javascript" src="../../../bower/three.js/three.js"></script>
+  <script type="text/javascript" src="../../../bower/threejs/build/three.js"></script>
   <!-- <script type="text/javascript" src="../components/three.js/ThreeExtras.js"></script> -->
   <script type="text/javascript" src="../../../bower/requestAnimationFrame/app/requestAnimationFrame.js"></script>
   <script type="text/javascript" src="../../webgl_detector.js"></script>
   <script type="text/javascript" src="tween.js"></script>
-  <script type="text/javascript" src="../webgl_globe_mod.js"></script>
+  <script type="text/javascript" src="../webgl_globe_mod_hover.js"></script>
   <script type="text/javascript">
 
     if(!Detector.webgl){
@@ -163,7 +163,7 @@
       // var years = ['1990','2000','2010'];
       var years = ["1990","1991","1992","1993","1994","1995","1996","1997","1998","1999","2000","2001","2002","2003","2004","2005","2006","2007","2008","2009","2010"];
       var container = document.getElementById('container');
-      var globe = new DAT.Globe(container, { imgDir: './' });
+      var globe = new DAT.Globe(container, { imgDir: './', invert: 'x' });
       console.log(globe);
       var i, tweens = [];
 

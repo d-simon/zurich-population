@@ -30,6 +30,7 @@ var DAT = DAT || {};
 
 DAT.Globe = function(container, opts) {
   opts = opts || {};
+  opts.intersectFn = (opts.intersectFn && typeof opts.intersectFn === 'function') ? opts.intersectFn : false;
 
   var colorFn = opts.colorFn || function(x) {
     var c = new THREE.Color();
@@ -85,6 +86,7 @@ DAT.Globe = function(container, opts) {
 
   var camera, scene, renderer, w, h;
   var mesh, atmosphere, point;
+  var planeGeom, planeMesh;
 
   var overRenderer;
 
@@ -100,6 +102,7 @@ DAT.Globe = function(container, opts) {
   var padding = 40;
   var PI_HALF = Math.PI / 2;
 
+  var that = this;
 
 
   function init() {
@@ -141,6 +144,15 @@ DAT.Globe = function(container, opts) {
     mesh.rotation.y = Math.PI*3/2;
     scene.add(mesh);
 
+    // ---------------------------------------------------------------
+    // IntersectPlane
+    // ---------------------------------------------------------------
+
+    planeGeom = new THREE.PlaneGeometry(360, 180, 1);
+    planeMesh = new THREE.Mesh(planeGeom, material);
+    planeMesh.rotation.z = Math.PI*0.5;
+    planeMesh.rotation.x = Math.PI*1.5;
+    scene.add(planeMesh);
 
     // ---------------------------------------------------------------
     // Atmosphere
@@ -187,7 +199,7 @@ DAT.Globe = function(container, opts) {
 
     container.appendChild(renderer.domElement);
 
-    container.addEventListener('mousedown', onMouseDown, false);
+    container.addEventListener('mousedown', onMouseDown.bind(that), false);
 
     container.addEventListener('mousewheel', onMouseWheel, false);
 
@@ -308,6 +320,7 @@ DAT.Globe = function(container, opts) {
     // ZURIPOP
     // Flatten view (from globe)
 
+
     var phi = (opts.invert == 'x')   ? (lat + 90)  : (90 - lat); // * Math.PI / 180;
     var theta = (opts.invert == 'y') ? (lng + 180) : (180 - lng); // * Math.PI / 180;
 
@@ -346,11 +359,36 @@ DAT.Globe = function(container, opts) {
     targetOnDown.y = target.y;
 
     container.style.cursor = 'move';
+
+  }
+
+  function raycast() {
+    // ZURIPOP
+    // Raycasting / Hover
+    if (opts.intersectFn) {
+        var bounding = container.getBoundingClientRect();
+        var mouse3D = new THREE.Vector3( ( (event.clientX - bounding.left) / container.offsetWidth ) * 2 - 1,
+                                        -( (event.clientY - bounding.top) / container.offsetHeight ) * 2 + 1,
+                                        0.5 );
+
+        mouse3D.unproject( camera );
+        mouse3D.sub( camera.position );
+        mouse3D.normalize();
+
+        var raycaster = new THREE.Raycaster( camera.position, mouse3D );
+        var intersects = raycaster.intersectObjects( [planeMesh] );
+        var intersectPoint = null;
+        if (intersects.length > 0) intersectPoint = intersects[0].point;
+        opts.intersectFn(event, point, intersects);
+    }
+
   }
 
 
-
   function onMouseMove(event) {
+
+    raycast();
+
     mouse.x = - event.clientX;
     mouse.y = event.clientY;
 
@@ -405,6 +443,7 @@ DAT.Globe = function(container, opts) {
     }
   }
 
+
   function onWindowResize( event ) {
     camera.aspect = container.offsetWidth / container.offsetHeight;
     camera.updateProjectionMatrix();
@@ -427,10 +466,6 @@ DAT.Globe = function(container, opts) {
 
   function render() {
     zoom(curZoomSpeed);
-
-
-    // ZURIPOP
-    // Block Y rotation
 
     rotation.x += (target.x - rotation.x) * 0.1;
     rotation.y += (target.y - rotation.y) * 0.1;
