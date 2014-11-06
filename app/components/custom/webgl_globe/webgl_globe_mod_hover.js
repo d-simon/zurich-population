@@ -360,6 +360,8 @@ DAT.Globe = function(container, opts) {
 
     container.style.cursor = 'move';
 
+    raycast();
+
   }
 
   function raycast() {
@@ -379,16 +381,14 @@ DAT.Globe = function(container, opts) {
         var intersects = raycaster.intersectObjects( [planeMesh] );
         var intersectPoint = null;
         if (intersects.length > 0) intersectPoint = intersects[0].point;
-        opts.intersectFn(event, point, intersects);
+        opts.intersectFn(event, _.clone(intersectPoint));//, _.clone(intersects));
+        // console.log(bounding, intersects)
     }
 
   }
 
 
   function onMouseMove(event) {
-
-    raycast();
-
     mouse.x = - event.clientX;
     mouse.y = event.clientY;
 
