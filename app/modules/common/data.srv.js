@@ -19,6 +19,10 @@
                 return $http.get(url + '/bev_zh_gemeinden.json');
             };
 
+            service.getGlobeData = function () {
+                return $http.get(url +'/bevtot_parcels_10_flat.min.json');
+            };
+
             return service;
         }]);
 

@@ -7,6 +7,7 @@
         'config',
         'zuriPopApp.common',
 
+        'zuriPopApp.globe',
         'zuriPopApp.timeline'
     ])
     .config(['$httpProvider', function ($httpProvider) {
