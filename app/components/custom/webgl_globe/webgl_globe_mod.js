@@ -34,6 +34,7 @@ DAT.Globe = function(container, opts) {
   var colorFn = opts.colorFn || function(x) {
     var c = new THREE.Color();
     c.setHSL( ( 0.6 - ( x * 0.5 ) ), 1.0, 0.5 );
+    if (x >= 1) console.log('ERROR: x larger than 1! x = ', x);
     return c;
   };
   var imgDir = opts.imgDir || '/globe/';
