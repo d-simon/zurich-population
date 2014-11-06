@@ -21,23 +21,29 @@ if (env === 'production') {
 }
 
 var sources = {
-    js: [
+    jsBower: [
+            'app/components/bower/jquery/dist/jquery.js',
+            'app/components/bower/lodash/dist/lodash.js',
+            'app/components/bower/jquery-mousewheel/jquery.mousewheel.js',
             'app/components/bower/angular/angular.js',
             'app/components/bower/tweenjs/build/tween.min.js',
             'app/components/bower/threejs/build/three.min.js',
-            'app/components/bower/jquery/dist/jquery.js',
             'app/components/bower/highcharts/highcharts.src.js',
             'app/components/bower/highcharts-ng/dist/highcharts-ng.js',
+            'app/components/bower/requestAnimationFrame/app/requestAnimationFrame.js'
+    ],
+    jsCustom: [
             'app/components/custom/webgl_globe/webgl_globe_mod.js',
             'app/components/custom/webgl_detector.js',
-            'app/components/bower/requestAnimationFrame/app/requestAnimationFrame.js',
-            'app/components/custom/start.tween.js',
-            'app/modules/**/*.js'
-        ],
+            'app/components/custom/start.tween.js'
+    ],
+    js: ['app/modules/**/*.js'],
     sass: ['app/sass/main.sass'],
     html: ['app/*.html'],
     json: ['app/data/*.json']
 };
+
+sources.js = [].concat(sources.jsBower, sources.jsCustom, sources.js);
 
 
 gulp.task('js', function() {

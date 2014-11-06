@@ -384,7 +384,7 @@ DAT.Globe = function(container, opts) {
 
   function onMouseWheel(event) {
     event.preventDefault();
-    if (overRenderer) {
+    if (overRenderer && !opts.zoomDisabled) {
       zoom(event.wheelDeltaY * 0.3);
     }
     return false;

@@ -14,8 +14,22 @@
         $httpProvider.defaults.cache = true;
     }])
     .run(['$rootScope', 'dataService', function ($rootScope, dataService) {
+
+        $rootScope.safeApply = function (fn) {
+            var phase = this.$root.$$phase;
+            if(phase == '$apply' || phase == '$digest') {
+                if(fn && (typeof(fn) === 'function')) {
+                    fn();
+                }
+            } else {
+                this.$apply(fn);
+            }
+        };
+
         $rootScope.state = {
-            year: 1983,
+            year: 1990,
+            minYear: 1990,
+            maxYear: 2010,
             location: false,  // false|int             BFS-ID
             mode: 'default'   // 'default'|'scenario'  Map Mode
         };
@@ -34,6 +48,14 @@
             .success(function successCallback (data) {
                 console.log(data);
             });
+
+        $(document).mousewheel(function(event) {
+            var year = _.max([1990, _.min([2010, $rootScope.state.year + (event.deltaY*event.deltaFactor)/100])]);
+            $rootScope.safeApply(function () {
+                if (year !== $rootScope.state.year) $rootScope.state.year = year;
+            });
+        });
+
     }]);
 
 }());

@@ -5,33 +5,41 @@
         .directive('globe', function () {
             return {
                 restrict: 'EA',
-                scope: true,
                 // replace: true,
                 // template: '<div class="mapViewer-container"></div>',
                 controller: 'globeController',
                 link: function postLink ($scope, $element, $attrs) {
-                    console.log($element[0]);
                     if (!Detector.webgl) {
                         Detector.addGetWebGLMessage();
                     } else {
                         $scope.globe = new DAT.Globe($element[0], {
                             imgDir: './',
-                            invert: 'x'
+                            invert: 'x',
+                            zoomDisabled: true
                         });
                     }
                 }
             };
         })
-        .controller('globeController', ['$scope', 'dataService', function ($scope, dataService) {
+        .controller('globeController', ['$scope', '$rootScope', 'dataService', function ($scope, $rootScope, dataService) {
             if (Detector.webgl) {
 
-                var tweens = [];
+                var tweens = [],
+                    inited = false,
+                    maxYearT = $rootScope.state.maxYear - $rootScope.state.minYear;
 
                 $scope.setTime = function(globe, t, tMax) {
                     return function() {
-                        new TWEEN.Tween(globe).to({
-                            time: t / tMax
-                        }, 500).easing(TWEEN.Easing.Elastic.InOut).start();
+                        // console.log('setTime', globe, t, tMax);
+                        if (t/tMax !== globe.time) {
+                            TWEEN.removeAll()
+                            new TWEEN.Tween(globe)
+                                .to({
+                                    time: t / tMax
+                                }, 500)
+                                .easing(TWEEN.Easing.Cubic.Out)
+                                .start();
+                        }
                     };
                 };
                 // console.log(dataService.getGlobeData());
@@ -44,9 +52,16 @@
                         });
                     }
                     $scope.globe.createPoints();
-                    $scope.setTime($scope.globe, 1, 20)();
+                    $scope.setTime($scope.globe, 19, maxYearT)();
                     $scope.globe.animate();
+                    inited = true;
                 });
+
+
+                $rootScope.$watch('state.year', _.throttle(function (newYear) {
+                    var y = Math.round(newYear - $rootScope.state.minYear);
+                    if (inited) $scope.setTime($scope.globe, y, maxYearT)();
+                },132));
 
 
             }
