@@ -438,11 +438,11 @@ DAT.Globe = function(container, opts) {
     distance += (distanceTarget - distance) * 0.3;
 
     camera.position.x = distance * Math.sin(rotation.x) * Math.cos(rotation.y);
-    camera.position.y = /*-100 +*/ distance * Math.sin(rotation.y);
+    camera.position.y = -100 +distance * Math.sin(rotation.y);
     camera.position.z = distance * Math.cos(rotation.x) * Math.cos(rotation.y);
 
     camera.lookAt(mesh.position);
-    camera.rotation.y -= Math.PI*0.05;
+    // camera.rotation.y -= Math.PI*0.05;
 
     renderer.render(scene, camera);
   }

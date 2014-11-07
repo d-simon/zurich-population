@@ -122,7 +122,7 @@
 
             function updateTooltip () {
                 var chartPoints = $scope.chartObj.series[0].points;
-                var normalizedValue = normalizeVal($rootScope.state.year, $rootScope.state.maxYear, $rootScope.state.minYear);
+                var normalizedValue = normalizeVal($rootScope.state.year, $rootScope.state.maxYearLimit, $rootScope.state.minYear);
                 var point = _.deepFindKeyValLimited(chartPoints, 'category', ''+normalizedValue, 2);
                 if (point.length) {
                     $scope.chartObj.tooltip.refresh(point[0]);

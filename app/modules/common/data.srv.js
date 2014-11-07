@@ -19,7 +19,7 @@
             };
 
             service.getGlobeData = function () {
-                return $http.get(url +'/wohnform_ratio_all_5_flat.json');
+                return $http.get(url +'/bevtot_merged_all_5_flat.min.json');
             };
 
             service.getIndikatorDaten = function () {

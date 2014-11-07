@@ -11,13 +11,13 @@
     <div ng-app="zuriPopApp">
         <header class="header">
             <h1 class="header-title">Zurich Population</h1>
-            <nav class="scenarioNav">
-                <button type="button" class="scenarioNav-btn">Geschichte</button>
-                <button type="button" class="scenarioNav-btn">Scenario</button>
+            <nav class="scenarioNav" style="position:absolute; z-index: 10;">
+                <button type="button" class="scenarioNav-btn" ng-click="switchMode('default')">Geschichte</button>
+                <button type="button" class="scenarioNav-btn" ng-click="switchMode('scenario')">Scenario</button>
             </nav>
         </header>
         <main class="main">
-            <!-- <div globe globe-year="year" class="mapViewer"></div> -->
+            <div globe globe-year="year" class="mapViewer"></div>
             <aside class="sidebar">
                 <div class="timeline">
                     <!-- Timeline Chart -->

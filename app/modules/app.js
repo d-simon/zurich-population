@@ -14,7 +14,7 @@
     .config(['$httpProvider', function ($httpProvider) {
         $httpProvider.defaults.cache = true;
     }])
-    .run(['$rootScope', 'dataService', function ($rootScope, dataService) {
+    .run(['$rootScope', '$timeout', 'dataService', function ($rootScope, $timeout, dataService) {
 
         $rootScope.safeApply = function (fn) {
             var phase = this.$root.$$phase;
@@ -28,11 +28,26 @@
         };
 
         $rootScope.state = {
-            year: 2000,
-            minYear: 1991,
-            maxYear: 2010,
+            year: 1990,
+            minYear: 1990,
+            maxYearLimit: 2010,
+            maxYear: 2031,
             location: false,  // false|int             BFS-ID
             mode: 'default'   // 'default'|'scenario'  Map Mode
+        };
+
+
+        $rootScope.switchMode = function (mode) {
+            switch(mode) {
+                case 'scenario':
+                    $rootScope.state.mode = 'scenario';
+                    break;
+                case 'default':
+                default:
+                    $rootScope.state.mode = 'default';
+                    // $rootScope.state.year = $rootScope.getYear();
+                    break;
+            }
         };
 
         dataService.getGemeindeKeys()
@@ -51,13 +66,20 @@
                 console.log(data);
             });
 
-        $(document).mousewheel(function(event) {
+        $rootScope.getYear = function (delta) {
+            var maxYear = ($rootScope.state.mode == 'scenario') ? $rootScope.state.maxYear : $rootScope.state.maxYearLimit-0.1;
+            var minYear = ($rootScope.state.mode == 'scenario') ? $rootScope.state.maxYearLimit + 1.1 : $rootScope.state.minYear;
+            var year = _.max([minYear, _.min([maxYear, $rootScope.state.year + (delta || 0)])]);
+            return year;
+        }
+
+        $(document).mousewheel(_.throttle(function(event) {
             event.preventDefault();
-            var year = _.max([$rootScope.state.minYear, _.min([$rootScope.state.maxYear, $rootScope.state.year + (event.deltaY*event.deltaFactor)/100])]);
+            var year = $rootScope.getYear((event.deltaY*event.deltaFactor)/100);
             $rootScope.safeApply(function () {
                 if (year !== $rootScope.state.year) $rootScope.state.year = year;
             });
-        });
+        },33));
 
     }]);
 
