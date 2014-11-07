@@ -32,13 +32,12 @@
             minYear: 1990,
             maxYearLimit: 2010,
             maxYear: 2031,
-            location: false,  // false|int             BFS-ID
+            gemeindeId: 261,  // false|int             BFS-ID
             mode: 'default'   // 'default'|'scenario'  Map Mode
         };
         $rootScope.data = {
-
+            gemeindeList: dataService.getGemeindeList()
         };
-
         $rootScope.switchMode = function (mode) {
             switch(mode) {
                 case 'scenario':
@@ -79,14 +78,58 @@
                 // "201": "Bevölkerungszunahme 1 Jahr [%]",
 
             });
+        dataService.getAreaWhgDaten()
+            .success(function successCallback (data) {
+                console.log(data);
+
+
+                var areaData = {},
+                    whgData = {};
+
+                var areaKey = {
+                    "183": "Anteil Landwirtschaftsfläche [%]",
+                    "184": "Anteil Waldfläche [%]",
+                    "187": "Anteil Verkehrsfläche [%]",
+                    "186": "Anteil Siedlungsfläche [%]",
+                    "185": "Anteil Gewässerfläche [%]",
+                    "459": "Anteil unproduktive Fläche [%]"
+                };
+                var whgKey = {
+                    "360": "Anteil 1 Zi.-Wohnungen [%]",
+                    "361": "Anteil 2 Zi.-Wohnungen [%]",
+                    "362": "Anteil 3 Zi.-Wohnungen [%]",
+                    "363": "Anteil 4 Zi.-Wohnungen [%]",
+                    "364": "Anteil 5 Zi.-Wohnungen [%]",
+                    "365": "Anteil 6+ Zi.-Wohnungen [%]",
+                };
+
+
+
+                $rootScope.safeApply(function () {
+                    _.forEach(areaKey, function (val, key) {
+                        areaData[key] = data[key];
+                    });
+                    _.forEach(whgKey, function (val, key) {
+                        whgData[key] = data[key];
+                    });
+
+                    $rootScope.data.areaData = areaData;
+                    $rootScope.data.whgData = whgData;
+                    console.log($rootScope);
+                });
+
+                // So D.R.Y ...!
+
+            });
+
+
 
         $rootScope.getYear = function (delta) {
             var maxYear = ($rootScope.state.mode == 'scenario') ? $rootScope.state.maxYear : $rootScope.state.maxYearLimit-0.1;
             var minYear = ($rootScope.state.mode == 'scenario') ? $rootScope.state.maxYearLimit + 1.1 : $rootScope.state.minYear;
             var year = _.max([minYear, _.min([maxYear, $rootScope.state.year + (delta || 0)])]);
             return year;
-        }
-
+        };
         $rootScope.getBoundedYear = function () {
             var maxYear = $rootScope.state.maxYearLimit-0.1,
                 minYear = $rootScope.state.minYear;
@@ -94,38 +137,41 @@
             return year;
         }
 
+
+        $rootScope.zoom = function (zoomValue) {
+            $rootScope.$emit('zoom', zoomValue);
+        };
+
+
+
+
         function numberWithCommas(x) {
             return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "'");
         }
 
-
+        $rootScope.getIndicator = function (indicator) {
+            return ($rootScope.data.sidebar &&
+                    $rootScope.data.sidebar[indicator] &&
+                    $rootScope.data.sidebar[indicator][$rootScope.state.gemeindeId] &&
+                    $rootScope.data.sidebar[indicator][$rootScope.state.gemeindeId][$rootScope.getBoundedYear()]) ? numberWithCommas($rootScope.data.sidebar[indicator][$rootScope.state.gemeindeId][$rootScope.getBoundedYear()]) : '—';
+        };
         $rootScope.getTotalPopulation = function () {
-            return ($rootScope.data.sidebar &&
-                    $rootScope.data.sidebar[133] &&
-                    $rootScope.data.sidebar[133][261] &&
-                    $rootScope.data.sidebar[133][261][$rootScope.getBoundedYear()]) ? numberWithCommas($rootScope.data.sidebar[133][261][$rootScope.getBoundedYear()]) : '—';
+            return $rootScope.getIndicator(133);
         };
-
         $rootScope.getTotalPopulationDenisty = function () {
-            return ($rootScope.data.sidebar &&
-                    $rootScope.data.sidebar[460] &&
-                    $rootScope.data.sidebar[460][261] &&
-                    $rootScope.data.sidebar[460][261][$rootScope.getBoundedYear()]) ? numberWithCommas($rootScope.data.sidebar[460][261][$rootScope.getBoundedYear()]) : '—';
+            return $rootScope.getIndicator(460);
         };
-
         $rootScope.getTotalPopulationIncreasePersons = function () {
-            return ($rootScope.data.sidebar &&
-                    $rootScope.data.sidebar[200] &&
-                    $rootScope.data.sidebar[200][261] &&
-                    $rootScope.data.sidebar[200][261][$rootScope.getBoundedYear()]) ? numberWithCommas($rootScope.data.sidebar[200][261][$rootScope.getBoundedYear()]) : '—';
+            return $rootScope.getIndicator(200);
+        };
+        $rootScope.getTotalPopulationIncreasePercentage = function () {
+            return $rootScope.getIndicator(201);
+        };
+        $rootScope.getGemeindeName = function () {
+            return $rootScope.data.gemeindeList[$rootScope.state.gemeindeId]['GDENAME'] || '—';
         };
 
-        $rootScope.getTotalPopulationIncreasePercentage = function () {
-            return ($rootScope.data.sidebar &&
-                    $rootScope.data.sidebar[201] &&
-                    $rootScope.data.sidebar[201][261] &&
-                    $rootScope.data.sidebar[201][261][$rootScope.getBoundedYear()]) ? numberWithCommas($rootScope.data.sidebar[201][261][$rootScope.getBoundedYear()]) : '—';
-        };
+
 
 
         $(document).mousewheel((function () {

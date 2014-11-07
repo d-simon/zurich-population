@@ -15,17 +15,25 @@
             <nav class="scenarioNav" style="position:absolute; z-index: 10;">
                 <button type="button" class="scenarioNav-btn" ng-click="switchMode('default')">Geschichte</button>
                 <button type="button" class="scenarioNav-btn" ng-click="switchMode('scenario')">Scenario</button>
+                <br>
+
+                <button type="button" class="scenarioNav-btn" ng-click="zoom(20)">+</button>
+                <button type="button" class="scenarioNav-btn" ng-click="zoom(-20)">-</button>
+                <br>
+                <select ng-model="state.gemeindeId" ng-options="gemeinde.GDENR as gemeinde.GDENAME for gemeinde in data.gemeindeList | orderObjectBy:'GDENAME':false">
+                  <option value="">-- Gemeinde wählen --</option>
+                </select>
+                {{state.gemeindeId}}
             </nav>
             </header>
-            <div globe globe-year="year" class="mapViewer"></div>
+            <!-- <div globe globe-year="year" class="mapViewer"></div> -->
             <aside class="sidebar">
                 <div class="timeline">
-                    <!-- Timeline Chart -->
                     <timeline></timeline>
                 </div>
                 <div class="region">
                     <div class="region-info">
-                        <h2 class="region-title">Zürich</h2>
+                        <h2 class="region-title">{{ getGemeindeName() }}</h2>
                         <div class="region-detail">
                             <dl class="margins-removed">
                                 <dt>Bevölkerung</dt>
@@ -38,20 +46,17 @@
                         </div>
                     </div>
                     <div class="region-map">
-                            <!-- SVG Map -->
                     </div>
                     <div class="region-chart chart">
                         <h3 class="chart-title">Flächenverteilung</h3>
                         <div class="chart-container">
-                            <!-- Donut Chart -->
-                            <donut donutData="areaData"></donut>
+                            <donut-area donutData="data.areaData"></donut-area>
                         </div>
                     </div>
                     <div class="region-chart chart">
                         <h3 class="chart-title">Wohnungsverteilung</h3>
                         <div class="chart-container">
-                            <!-- Donut Chart -->
-                            <donut donutData="whgData"></donut>
+                            <donut donutData="data.whgData"></donut>
                         </div>
                     </div>
                 </div>

@@ -169,7 +169,7 @@ DAT.Globe = function(container, opts) {
     // Point
     // ---------------------------------------------------------------
 
-    geometry = new THREE.CubeGeometry(0.75, 0.75, 1);
+    geometry = new THREE.CubeGeometry(opts.pointSize || 0.75, opts.pointSize || 0.75, 1);
     geometry.applyMatrix(new THREE.Matrix4().makeTranslation(0,0,-0.5));
 
     point = new THREE.Mesh(geometry);
@@ -180,8 +180,9 @@ DAT.Globe = function(container, opts) {
     // Renderer
     // ---------------------------------------------------------------
 
-    renderer = new THREE.WebGLRenderer({antialias: true});
+    renderer = new THREE.WebGLRenderer({antialias: true, alpha: true });
     renderer.setSize(w, h);
+    renderer.setClearColor( 0x000000, 0 );
 
 
     renderer.domElement.style.position = 'absolute';
@@ -217,10 +218,10 @@ DAT.Globe = function(container, opts) {
     console.log(opts.format);
     if (opts.format === 'magnitude') {
       step = 3;
-      colorFnWrapper = function(data, i) { return colorFn(data[i+2]); }
+      colorFnWrapper = function(data, i) { return colorFn(data[i+2], data[i+1], data[i], i); }
     } else if (opts.format === 'legend') {
       step = 4;
-      colorFnWrapper = function(data, i) { return colorFn(data[i+3]); }
+      colorFnWrapper = function(data, i) { return colorFn(data[i+3], data[i+2], data[i+1], data[i], i); }
     } else {
       throw('error: format not supported: '+opts.format);
     }
@@ -438,17 +439,19 @@ DAT.Globe = function(container, opts) {
     distance += (distanceTarget - distance) * 0.3;
 
     camera.position.x = distance * Math.sin(rotation.x) * Math.cos(rotation.y);
-    camera.position.y = -100 +distance * Math.sin(rotation.y);
+    camera.position.y = 100 + distance * Math.sin(rotation.y);
     camera.position.z = distance * Math.cos(rotation.x) * Math.cos(rotation.y);
 
     camera.lookAt(mesh.position);
     // camera.rotation.y -= Math.PI*0.05;
+
 
     renderer.render(scene, camera);
   }
 
   init();
   this.animate = animate;
+  this.zoom = zoom;
 
 
   this.__defineGetter__('time', function() {
