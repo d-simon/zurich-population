@@ -17,8 +17,8 @@
                 <button type="button" class="scenarioNav-btn" ng-click="switchMode('scenario')">Scenario</button>
             </nav>
             </header>
-<!--             <div globe globe-year="year" class="mapViewer"></div>
- -->            <aside class="sidebar">
+            <div globe globe-year="year" class="mapViewer"></div>
+            <aside class="sidebar">
                 <div class="timeline">
                     <!-- Timeline Chart -->
                     <timeline></timeline>
@@ -33,7 +33,7 @@
                                 <dt>Dichte</dt>
                                 <dd>{{ getTotalPopulationDenisty() }} Pers./KM²</dd>
                                 <dt>Zunahme</dt>
-                                <dd><i class="icon icon-arrow-up"></i> 1.0% – 3'793 Pers.</dd>
+                                <dd><i class="icon icon-arrow-up"></i>{{ getTotalPopulationIncreasePercentage() }} % / {{ getTotalPopulationIncreasePersons() }} Pers.</dd>
                             </dl>
                         </div>
                     </div>

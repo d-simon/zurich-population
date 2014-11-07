@@ -108,9 +108,23 @@
 
         $rootScope.getTotalPopulationDenisty = function () {
             return ($rootScope.data.sidebar &&
-                    $rootScope.data.sidebar[133] &&
-                    $rootScope.data.sidebar[133][261] &&
-                    $rootScope.data.sidebar[133][261][$rootScope.getBoundedYear()]) ? numberWithCommas($rootScope.data.sidebar[133][261][$rootScope.getBoundedYear()]) : '—';
+                    $rootScope.data.sidebar[460] &&
+                    $rootScope.data.sidebar[460][261] &&
+                    $rootScope.data.sidebar[460][261][$rootScope.getBoundedYear()]) ? numberWithCommas($rootScope.data.sidebar[460][261][$rootScope.getBoundedYear()]) : '—';
+        };
+
+        $rootScope.getTotalPopulationIncreasePersons = function () {
+            return ($rootScope.data.sidebar &&
+                    $rootScope.data.sidebar[200] &&
+                    $rootScope.data.sidebar[200][261] &&
+                    $rootScope.data.sidebar[200][261][$rootScope.getBoundedYear()]) ? numberWithCommas($rootScope.data.sidebar[200][261][$rootScope.getBoundedYear()]) : '—';
+        };
+
+        $rootScope.getTotalPopulationIncreasePercentage = function () {
+            return ($rootScope.data.sidebar &&
+                    $rootScope.data.sidebar[201] &&
+                    $rootScope.data.sidebar[201][261] &&
+                    $rootScope.data.sidebar[201][261][$rootScope.getBoundedYear()]) ? numberWithCommas($rootScope.data.sidebar[201][261][$rootScope.getBoundedYear()]) : '—';
         };
 
 
