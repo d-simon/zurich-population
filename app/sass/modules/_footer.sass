@@ -8,9 +8,11 @@
     left: 0
     padding: 20px
     pointer-events: none
+    z-index: 9 /*magic*/
 
     &-info
         @include font-base-small()
         text-transform: uppercase
         &--label
             @include font-base-small-bold()
+            font-weight: 300

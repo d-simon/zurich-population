@@ -91,7 +91,7 @@ gulp.task('html', function() {
 });
 
 gulp.task('images', function() {
-  return gulp.src('app/media/*.*')
+  return gulp.src('app/media/**/*.*')
     .pipe(gulpif(env === 'production', imagemin({
       progressive: true,
       svgoPlugins: [{ removeViewBox: false }],
@@ -102,14 +102,14 @@ gulp.task('images', function() {
 });
 
 gulp.task('json', function() {
-  return gulp.src('app/data/*.json')
+  return gulp.src('app/data/**/*.json')
     .pipe(gulpif(env === 'production', jsonminify()))
     .pipe(gulp.dest(outputDir + 'data'))
     .pipe(connect.reload())
 });
 
 gulp.task('lint', function() {
-  return gulp.src(['app/modules/*.js', 'app/app.js'].concat(sources.jsCustom))
+  return gulp.src(['app/modules/**/*.js', 'app/app.js'].concat(sources.jsCustom))
     .pipe(jshint())
     .pipe(jshint.reporter('jshint-stylish'));
 });
@@ -118,8 +118,8 @@ gulp.task('watch', function() {
   gulp.watch(sources.js, ['lint', 'js']);
   gulp.watch('app/sass/**/*.sass', ['compass']);
   gulp.watch('app/*.html', ['html']);
-  gulp.watch('app/data/*.json', ['json']);
-  gulp.watch('app/media/*.*', ['images']);
+  gulp.watch('app/data/**/*.json', ['json']);
+  gulp.watch('app/media/**/*.*', ['images']);
 });
 
 

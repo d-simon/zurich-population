@@ -3,5 +3,19 @@
 // ==========================================================================
 
 .sidebar
+    position: absolute
+    top: 0
+    right: 0
+    bottom: 0
+    z-index: 10
+    width: $sidebar-width
     background: rgba(30,30,30,0.5)
     padding: 20px 20px 60px
+    @include transition(0.3s right ease-in-out)
+    .icon-btn.icon-btn--arrow
+        @include single-transition(0.3s, transform, ease-in-out, 0.3s)
+
+    &.is-hidden
+        right: (-($sidebar-width))-(20px*2)
+        .icon-btn.icon-btn--arrow
+            @include rotate(-180deg)

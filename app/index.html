@@ -12,22 +12,19 @@
         <main class="main">
             <header class="header">
                 <h1 class="header-title">Zurich Population</h1>
-            <nav class="scenarioNav" style="position:absolute; z-index: 10;">
-                <span class="scenarioNav-btn" ng-click="switchMode('default')"  ng-class="{'active': state.mode == 'default'}">Geschichte</span>
-                <span class="scenarioNav-btn" ng-click="switchMode('scenario')" ng-class="{'active': state.mode == 'scenario'}">Scenario</span>
-                <br>
+                <nav class="scenarioNav" style="position:absolute; z-index: 10;">
+                    <span class="scenarioNav-btn" ng-click="switchMode('default')"  ng-class="{'active': state.mode == 'default'}">Geschichte</span>
+                    <span class="scenarioNav-btn" ng-click="switchMode('scenario')" ng-class="{'active': state.mode == 'scenario'}">Scenario</span>
+                    <br>
 
-                <span class="scenarioNav-btn" ng-click="zoom(20)">+</span>
-                <span class="scenarioNav-btn" ng-click="zoom(-20)">-</span>
-                <br>
-                <select ng-model="state.gemeindeId" ng-options="gemeinde.GDENR as gemeinde.GDENAME for gemeinde in data.gemeindeList | orderObjectBy:'GDENAME':false">
-                  <option value="">-- Gemeinde wählen --</option>
-                </select>
-                {{state.gemeindeId}}
-            </nav>
+                    <span class="scenarioNav-btn" ng-click="zoom(20)">+</span>
+                    <span class="scenarioNav-btn" ng-click="zoom(-20)">-</span>
+                    <br>
+                    <input type="range" min="{{state.maxYearLimit+1}}" max="{{state.maxYear}}" step="1" ng-show="state.mode =='scenario'" ng-model="state.scenarioSlider" size="30" />
+                </nav>
             </header>
-            <div globe globe-year="year" class="mapViewer"></div>
-            <aside class="sidebar">
+            <!-- <div globe globe-year="year" class="mapViewer"></div> -->
+            <aside class="sidebar" ng-class="{'is-hidden': state.hideSidebar}">
                 <div class="timeline">
                     <timeline></timeline>
                 </div>
@@ -46,6 +43,10 @@
                         </div>
                     </div>
                     <div class="region-map">
+                    <br><br>
+                        <select ng-model="state.gemeindeId" ng-options="gemeinde.GDENR as gemeinde.GDENAME for gemeinde in data.gemeindeList | orderObjectBy:'GDENAME':false">
+                          <option value="">-- Gemeinde wählen --</option>
+                        </select>
                     </div>
                     <div class="region-chart chart">
                         <h3 class="chart-title">Flächenverteilung</h3>
@@ -60,6 +61,7 @@
                         </div>
                     </div>
                 </div>
+                <div class="icon-btn icon-btn--br icon-btn--arrow" ng-click="state.hideSidebar = !state.hideSidebar"></div>
             </aside>
             <footer class="footer">
                 <span class="footer-info">ZHdK 2014</span>

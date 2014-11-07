@@ -24,7 +24,7 @@
                 options: {
                     chart: {
                         width: 400,
-                        height: 300,
+                        height: 220,
                         plotBackgroundColor: null,
                         plotBorderWidth: null,
                         plotShadow: false,
@@ -45,7 +45,7 @@
                         itemMarginBottom: 7,
                         verticalAlign: 'top',
                         x: -10,
-                        y: 60,
+                        y: 30,
                         floating: false,
                         itemStyle: {
                             color: '#FFF',
@@ -208,7 +208,7 @@
                 options: {
                     chart: {
                         width: 400,
-                        height: 300,
+                        height: 240,
                         plotBackgroundColor: null,
                         plotBorderWidth: null,
                         plotShadow: false,
@@ -229,7 +229,7 @@
                         itemMarginBottom: 7,
                         verticalAlign: 'top',
                         x: -10,
-                        y: 60,
+                        y: 20,
                         floating: false,
                         itemStyle: {
                             color: '#FFF',

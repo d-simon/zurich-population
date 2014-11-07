@@ -32,11 +32,13 @@
         };
 
         $rootScope.state = {
+            scenarioSlider: 10,
             year: 1990,
             minYear: 1990,
             maxYearLimit: 2010,
             maxYear: 2031,
             gemeindeId: 261,  // false|int             BFS-ID
+            hideSidebar: false,
             mode: 'default'   // 'default'|'scenario'  Map Mode
         };
         $rootScope.data = {
@@ -46,6 +48,7 @@
             switch(mode) {
                 case 'scenario':
                     $rootScope.state.mode = 'scenario';
+                    $rootScope.state.hideSidebar = true;
                     break;
                 case 'default':
                 default:
@@ -177,7 +180,7 @@
 
 
         hotkeys.add({
-            combo: 'alt+down',
+            combo: 'w',
             description: 'Zoom',
             callback: function(event, hotkey) {
                 console.log('zoom out')
@@ -187,7 +190,7 @@
         });
 
         hotkeys.add({
-            combo: 'alt+up',
+            combo: 's',
             description: 'Zoom',
             callback: function(event, hotkey) {
                 console.log('zoom in')
@@ -197,14 +200,24 @@
         });
 
 
+        $rootScope.$watch('state.scenarioSlider', function (newValue) {
+            console.log(newValue, $rootScope.state.mode);
+            if ($rootScope.state.mode == 'scenario') {
+                $rootScope.safeApply(function () {
+                    if (newValue !== $rootScope.state.year) $rootScope.state.year = newValue;
+                });
+            }
+        });
+
         $(document).mousewheel((function () {
 
             var updateMouswheel = _.throttle(function(event) {
-
-                var year = $rootScope.getYear((event.deltaY*event.deltaFactor)/100);
-                $rootScope.safeApply(function () {
-                    if (year !== $rootScope.state.year) $rootScope.state.year = year;
-                });
+                if ($rootScope.state.mode != 'scenario') {
+                    var year = $rootScope.getYear((event.deltaY*event.deltaFactor)/100);
+                    $rootScope.safeApply(function () {
+                        if (year !== $rootScope.state.year) $rootScope.state.year = year;
+                    });
+                }
             });
 
             return function (event) {
