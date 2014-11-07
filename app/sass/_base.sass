@@ -17,19 +17,6 @@ body
 main
     padding-right: $sidebar-width
 
-.scenarioNav
-    &-btn
-        display: inline-block
-        cursor: pointer
-        padding: 15px
-        margin-bottom: 20px
-        min-width: $line-height-computed
-        text-align: center
-        color: #fff
-        background: rgba(20, 20, 20, 0.7)
-
-        &.active
-            background: rgba(92,219,73, 0.9)// #4f9431
 
 
 .icon-btn
@@ -44,8 +31,64 @@ main
         bottom: 20px
         left: -70px
 
+    &--slider
+        width: 35px
+        height: 35px
+        display: inline-block
+
     &--arrow
         background: url('../media/icons/button-arrow.svg') no-repeat center center
+
+    &--house-1
+        background: url('../media/icons/button-house-1.svg') no-repeat center center
+        top: -8px
+        position: relative
+
+    &--house-2
+        background: url('../media/icons/button-house-2.svg') no-repeat center center
+        top: -8px
+        position: relative
+
+    &--pop-1
+        background: url('../media/icons/button-pop-1.svg') no-repeat center center
+        top: -10px
+        position: relative
+
+    &--pop-2
+        background: url('../media/icons/button-pop-2.svg') no-repeat center center
+        top: -10px
+        position: relative
+
+.scenarioNav
+    &-btn
+        display: inline-block
+        cursor: pointer
+        padding: 15px
+        margin-bottom: 20px
+        min-width: $line-height-computed
+        text-align: center
+        color: #fff
+        background: rgba(20, 20, 20, 0.7)
+
+        &.active
+            background: rgba(92,219,73, 0.9)// #4f9431
+
+    &-slider
+        width: 400px
+        height: 20px
+        display: inline-block
+        padding: 15px
+        margin-bottom: 20px
+        margin-right: 20px
+        background: rgba(20, 20, 20, 0.7)
+        float: left
+        & > *
+            display: inline-block
+
+    &-rangeSlider
+        width: 79%
+        position: relative
+        top: -17px
 
 
 .chart-title

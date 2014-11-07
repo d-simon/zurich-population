@@ -20,10 +20,9 @@
                     <span class="scenarioNav-btn" ng-click="zoom(20)">+</span>
                     <span class="scenarioNav-btn" ng-click="zoom(-20)">-</span>
                     <br>
-                    <input type="range" min="{{state.maxYearLimit+1}}" max="{{state.maxYear}}" step="1" ng-show="state.mode =='scenario'" ng-model="state.scenarioSlider" size="30" />
                 </nav>
             </header>
-            <!-- <div globe globe-year="year" class="mapViewer"></div> -->
+            <div globe globe-year="year" class="mapViewer"></div>
             <aside class="sidebar" ng-class="{'is-hidden': state.hideSidebar}">
                 <div class="timeline">
                     <timeline></timeline>
@@ -63,6 +62,19 @@
                 </div>
                 <div class="icon-btn icon-btn--br icon-btn--arrow" ng-click="state.hideSidebar = !state.hideSidebar"></div>
             </aside>
+            <div style="position:absolute; bottom: 35px; left: 20px">
+                <div class="scenarioNav-slider" ng-show="state.mode =='scenario'">
+                    <i class="icon-btn icon-btn--slider icon-btn--house-1"></i>
+                    <input type="range" min="{{state.maxYearLimit+1}}" max="{{state.maxYear}}" step="1" ng-model="state.scenarioSlider" size="30" class="scenarioNav-rangeSlider" />
+                    <i class="icon-btn icon-btn--slider icon-btn--house-2"></i>
+                </div>&nbsp;
+                <div class="scenarioNav-slider" ng-show="state.mode =='scenario'">
+                    <i class="icon-btn icon-btn--slider icon-btn--pop-1"></i>
+                    <input type="range" min="{{state.maxYearLimit+1}}" max="{{state.maxYear}}" step="1"  size="30" class="scenarioNav-rangeSlider"/>
+                    <i class="icon-btn icon-btn--slider icon-btn--pop-2"></i>
+                </div>
+                <br>
+            </div>
             <footer class="footer">
                 <span class="footer-info">ZHdK 2014</span>
                 <span class="footer-info"><b class="footer-info--label">Source</b> Statistisches Amt des Kt. Zürich, Hektardaten Bev. 2010/BA für Statistik, eidg. Volkszählungen 1990 und 2000</span>
