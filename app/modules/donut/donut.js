@@ -14,6 +14,10 @@
         .controller('donutController', ['$scope', '$rootScope', function ($scope, $rootScope) {
             $scope.chartObj = {};
             $scope.donutConf = {
+
+
+                // default donut options
+
                 options: {
                     chart: {
                         width: 400,
@@ -97,8 +101,14 @@
                     }
                 },
                 title: {
-                    text: ' ',
+                    text: ' ', // don't display a title
                 },
+
+
+
+
+                // default series
+
                 series: [{
                     animation: false,
                         states: {
@@ -118,8 +128,7 @@
                     startAngle: 5,
                     endAngle: 175,
                     showInLegend: true,
-                    colors: ['#DDD', '#23a5ff', '#39B341', '#16A720', '#098A11', '#098A11']
-
+                    colors: ['#DDD', '#23a5ff', '#4f9431', '#79ad63', '#8bb878', '#a5c896']
                 },
                 {
                     animation: false,
@@ -141,7 +150,7 @@
                     startAngle: 185,
                     endAngle: 355,
                     showInLegend: false,
-                    colors: ['#DDD', '#23a5ff', '#39B341', '#16A720', '#098A11', '#098A11'].reverse()
+                    colors: ['#DDD', '#23a5ff', '#4f9431', '#79ad63', '#8bb878', '#a5c896'].reverse()
                 }]
             };
 

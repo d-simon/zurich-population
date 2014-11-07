@@ -30,6 +30,10 @@
                 return $http.get(url +'/Area_and_Whg.min.json');
             };
 
+            service.getAdditionalSidebarInfo = function () {
+                return $http.get(url +'/Additional_sidebar_info.min.json');
+            };
+
             return service;
         }]);
 
