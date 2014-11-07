@@ -316,7 +316,7 @@
                     startAngle: 5,
                     endAngle: 175,
                     showInLegend: true,
-                    colors: ['#4f9431', '#79ad63', '#8bb878', '#a5c896', '#c7ddbd', '#e5efe0']
+                    colors: ['#DDD', '#BBB', '#999', '#777', '#555', '#333']
                 },
                 {
                     animation: false,
@@ -338,7 +338,7 @@
                     startAngle: 185,
                     endAngle: 355,
                     showInLegend: false,
-                    colors: ['#4f9431', '#79ad63', '#8bb878', '#a5c896', '#c7ddbd', '#e5efe0'].reverse()
+                    colors: ['#DDD', '#BBB', '#999', '#777', '#555', '#333'].reverse()
                 }]
             };
 
