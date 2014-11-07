@@ -13,12 +13,12 @@
             <header class="header">
                 <h1 class="header-title">Zurich Population</h1>
             <nav class="scenarioNav" style="position:absolute; z-index: 10;">
-                <button type="button" class="scenarioNav-btn" ng-click="switchMode('default')">Geschichte</button>
-                <button type="button" class="scenarioNav-btn" ng-click="switchMode('scenario')">Scenario</button>
+                <span class="scenarioNav-btn" ng-click="switchMode('default')"  ng-class="{'active': state.mode == 'default'}">Geschichte</span>
+                <span class="scenarioNav-btn" ng-click="switchMode('scenario')" ng-class="{'active': state.mode == 'scenario'}">Scenario</span>
                 <br>
 
-                <button type="button" class="scenarioNav-btn" ng-click="zoom(20)">+</button>
-                <button type="button" class="scenarioNav-btn" ng-click="zoom(-20)">-</button>
+                <span class="scenarioNav-btn" ng-click="zoom(20)">+</span>
+                <span class="scenarioNav-btn" ng-click="zoom(-20)">-</span>
                 <br>
                 <select ng-model="state.gemeindeId" ng-options="gemeinde.GDENR as gemeinde.GDENAME for gemeinde in data.gemeindeList | orderObjectBy:'GDENAME':false">
                   <option value="">-- Gemeinde wählen --</option>
@@ -26,7 +26,7 @@
                 {{state.gemeindeId}}
             </nav>
             </header>
-            <!-- <div globe globe-year="year" class="mapViewer"></div> -->
+            <div globe globe-year="year" class="mapViewer"></div>
             <aside class="sidebar">
                 <div class="timeline">
                     <timeline></timeline>

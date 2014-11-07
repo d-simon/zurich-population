@@ -118,6 +118,13 @@
                 }
             });
 
+            $rootScope.$watch('state.mode', function (newVal) {
+                if ($scope.chartObj.tooltip && $scope.chartObj.series.length && $scope.chartObj.series[0].points.length) {
+                    updateTooltip();
+                }
+            });
+
+
             function normalizeVal (val, max, min) {
                 return _.max([min, _.min([max,Math.round(val)])]);
             }

@@ -3,6 +3,7 @@
 
     angular.module('zuriPopApp', [
         'highcharts-ng',
+        'cfp.hotkeys',
 
         'config',
         'zuriPopApp.common',
@@ -14,7 +15,10 @@
     .config(['$httpProvider', function ($httpProvider) {
         $httpProvider.defaults.cache = true;
     }])
-    .run(['$rootScope', '$timeout', 'dataService', function ($rootScope, $timeout, dataService) {
+    .config(['hotkeysProvider', function (hotkeysProvider) {
+        hotkeysProvider.includeCheatSheet = false;
+    }])
+    .run(['$rootScope', '$timeout', 'dataService', 'hotkeys', function ($rootScope, $timeout, dataService, hotkeys) {
 
         $rootScope.safeApply = function (fn) {
             var phase = this.$root.$$phase;
@@ -172,6 +176,25 @@
         };
 
 
+        hotkeys.add({
+            combo: 'alt+down',
+            description: 'Zoom',
+            callback: function(event, hotkey) {
+                console.log('zoom out')
+                event.preventDefault();
+                $rootScope.zoom(-10);
+            }
+        });
+
+        hotkeys.add({
+            combo: 'alt+up',
+            description: 'Zoom',
+            callback: function(event, hotkey) {
+                console.log('zoom in')
+                event.preventDefault();
+                $rootScope.zoom(10);
+            }
+        });
 
 
         $(document).mousewheel((function () {

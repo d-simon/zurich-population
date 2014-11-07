@@ -26,6 +26,7 @@
     "requestAnimationFrame": "~0.0.22",
     "lodash": "~2.4.1",
     "threejs": "*",
-    "jquery-mousewheel": "~3.1.12"
+    "jquery-mousewheel": "~3.1.12",
+    "angular-hotkeys": "chieffancypants/angular-hotkeys#~1.4.5"
   }
 }
