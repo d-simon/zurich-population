@@ -17,7 +17,7 @@
                 options: {
                     chart: {
                         width: 400,
-                        height: 300,
+                        height: 150,
                         marginTop: 50
                     },
                     credits: {
@@ -82,7 +82,7 @@
                         footerFormat: '',
 
                         positioner: function(boxWidth, boxHeight, point) {
-                            return {x:point.plotX - 5,y:point.plotY -10};
+                            return {x:point.plotX - 5,y:point.plotY };
                         }
                     },
                     exporting: {
@@ -95,7 +95,9 @@
                 series: [{
                     animation: false,
                     data: [1122778, 1127674, 1133362, 1140100, 1145522, 1154681, 1166039, 1158664, 1162120, 1167087, 1172970, 1176347, 1178394, 1184002, 1193789, 1206708, 1223101, 1237920, 1245683, 1255645, 1264141, 1274384, 1300545, 1326775, 1344866, 1371007, 1390124, 1406083, 1421895],
-                    showInLegend: false
+                    showInLegend: false,
+                    color: '#FFF',
+                    lineWidth: 1
                 }]
 
             };

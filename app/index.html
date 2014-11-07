@@ -9,14 +9,14 @@
 </head>
 <body>
     <div ng-app="zuriPopApp">
-        <header class="header">
-            <h1 class="header-title">Zurich Population</h1>
+        <main class="main">
+            <header class="header">
+                <h1 class="header-title">Zurich Population</h1>
             <nav class="scenarioNav" style="position:absolute; z-index: 10;">
                 <button type="button" class="scenarioNav-btn" ng-click="switchMode('default')">Geschichte</button>
                 <button type="button" class="scenarioNav-btn" ng-click="switchMode('scenario')">Scenario</button>
             </nav>
-        </header>
-        <main class="main">
+            </header>
             <div globe globe-year="year" class="mapViewer"></div>
             <aside class="sidebar">
                 <div class="timeline">
@@ -44,23 +44,23 @@
                         <h3 class="chart-title">Flächenverteilung</h3>
                         <div class="chart-container">
                             <!-- Donut Chart -->
+                            <donut donutData="areaData"></donut>
                         </div>
                     </div>
                     <div class="region-chart chart">
                         <h3 class="chart-title">Wohnungsverteilung</h3>
                         <div class="chart-container">
                             <!-- Donut Chart -->
-                            <donut donutData="areaData"></donut>
                             <donut donutData="whgData"></donut>
                         </div>
                     </div>
                 </div>
             </aside>
+            <footer class="footer">
+                <span class="footer-info">ZHdK 2014</span>
+                <span class="footer-info"><b class="footer-info--label">Source</b> Statistisches Amt des Kt. Zürich, Hektardaten Bev. 2010/BA für Statistik, eidg. Volkszählungen 1990 und 2000</span>
+            </footer>
         </main>
-        <footer class="footer">
-            <span class="footer-info">ZHdK 2014</span>
-            <span class="footer-info"><b class="footer-info--label">Source</b> Statistisches Amt des Kt. Zürich, Hektardaten Bev. 2010/BA für Statistik, eidg. Volkszählungen 1990 und 2000</span>
-        </footer>
     </div>
     <script src="app.js" type="text/javascript" charset="utf-8"></script>
 </body>

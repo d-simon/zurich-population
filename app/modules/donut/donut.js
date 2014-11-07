@@ -16,21 +16,29 @@
             $scope.donutConf = {
                 options: {
                     chart: {
+                        width: 400,
+                        height: 300,
                         plotBackgroundColor: null,
                         plotBorderWidth: null,
                         plotShadow: false,
+                        margin: [0, 120, 0, 30],
                         spacingTop: 0,
-                        spacingBottom: 0
+                        spacingBottom: 0,
+                        spacingLeft: 0,
+                        spacingRight: 0
                     },
-                    colors: ['#39B341', '#16A720', '#098A11',  '#098A11',  '#007207',  '#005406'],
                     credits: {
                         enabled: false
                     },
                     legend: {
                         align: 'right',
-                        verticalAlign: 'top',
-                        layout: 'vertical',
                         borderWidth: 0,
+                        layout: 'vertical',
+                        itemMarginTop: 7,
+                        itemMarginBottom: 7,
+                        verticalAlign: 'top',
+                        x: -10,
+                        y: 60,
                         floating: true,
                         itemStyle: {
                             color: '#FFF'
@@ -38,40 +46,47 @@
                         itemHoverStyle: {
                             color: '#FFF'
                         },
-                        itemMarginBottom: 10,
-                        y: 100,
-                        x: -120,
-                        useHTML:true,
+                        useHTML: true,
                         labelFormatter: function () {
                             return ("<span class='highcharts-legend'>" + this.name + "</span>");
                         }
                     },
                     plotOptions: {
                         pie: {
+
+                            innerSize: '50%',
+                            size: '65%',
+                            center: ['38%'],
+
                             borderWidth: 0,
                             showInLegend: true,
-                                point: {
+                            point: {
                                 events: {
                                     legendItemClick: function () {
                                         return false; // <== returning false will cancel the default action
                                     }
                                 }
+                            },
+                            dataLabels: {
+                                connectorWidth: 1
                             }
                         },
                         series: {
                             dataLabels: {
                                 enabled: true,
                                 borderRadius: 0,
-                                backgroundColor: 'rgba(255, 255, 255, 0.2)',
+                                backgroundColor: 'rgba(255, 255, 255, 0.0)',
                                 borderWidth: 0,
                                 borderColor: '#FFF',
+                                connectorWidth: 1, // hide the connector
+                                distance: 10,
                                 y: 0,
                                 x: 0,
                                 useHTML: true,
                                 formatter: function() {
                                     return ("<span class='highcharts-datalabel'>" + this.y + " %" + "</span>");
                                 }
-                            }
+                            },
                         }
                     },
                     tooltip: {
@@ -93,17 +108,18 @@
                         },
                     type: 'pie',
                     data: [
-                        ["Red", 2],
-                        ["Yellow", 5],
-                        ["Green", 3]
+                        ["Siedlungsfläche", 16.2],
+                        ["Gewässerfläche", 1.2],
+                        ["Landwirtschaftsfläche", 43.4],
+                        ["Waldfläche", 31.6],
+                        ["Verkehrsfläche", 6.6],
+                        ["unproduktive Fläche", 1.1]
                     ],
-                    center: ['30%'],
                     startAngle: 5,
                     endAngle: 175,
-                    name: 'foo',
-                    innerSize: '80%',
-                    size: '50%',
-                    showInLegend: true
+                    showInLegend: true,
+                    colors: ['#DDD', '#23a5ff', '#39B341', '#16A720', '#098A11', '#098A11']
+
                 },
                 {
                     animation: false,
@@ -115,32 +131,33 @@
                     type: 'pie',
                     linkedTo: ':previous',
                     data: [
-                        ["Red", 1],
-                        ["Yellow", 2],
-                        ["Green", 7]
-                    ],
-                    center: ['30%'],
+                        ["Siedlungsfläche", 47.4],
+                        ["Gewässerfläche", 1.3],
+                        ["Landwirtschaftsfläche", 10.1],
+                        ["Waldfläche", 26.2],
+                        ["Verkehrsfläche", 14.6],
+                        ["unproduktive Fläche", 0.4]
+                    ].reverse(),
                     startAngle: 185,
                     endAngle: 355,
-                    name: 'bar',
-                    innerSize: '80%',
-                    size: '50%',
-                    showInLegend: false
+                    showInLegend: false,
+                    colors: ['#DDD', '#23a5ff', '#39B341', '#16A720', '#098A11', '#098A11'].reverse()
                 }]
             };
 
-            $scope.$watch('chartObj', function () {
-                console.log($scope.chartObj);
-            });
+            // $scope.$watch('chartObj', function () {
+            //     console.log($scope.chartObj);
+            // });
 
-            // $scope.$watch('chartObj.tick', function () {
+            // dataService.getAreaWhgDaten().success(function (data) {
+            // });
+
+            // $rootScope.$watch('state.year', function (newVal) {
             //     if ($scope.chartObj.tooltip && $scope.chartObj.series.length && $scope.chartObj.series[0].points.length) {
             //         updateTooltip();
             //     }
             // });
 
-            // dataService.getDonutData().success(function (data) {
-            // });
 
 
             // $scope.watch('donutData', function () {
