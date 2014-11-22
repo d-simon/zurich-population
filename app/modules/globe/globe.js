@@ -31,7 +31,7 @@
 
                                         return function (x, lng, lat, i) {
                                             // look up BFS with long and lat
-                                            var bfs = $scope.lookupBFS(lng, lat);
+                                            var bfs = parseInt($scope.lookupBFS(lng, lat), 10);
                                             var sat = +bfs/300;
                                             // console.log(x, sat);
 
@@ -53,7 +53,7 @@
                                             }
 
                                             return function (x, lng, lat, i) {
-                                                var bfs = $scope.lookupBFS(lng, lat);
+                                                var bfs = parseInt($scope.lookupBFS(lng, lat), 10);
                                                 var sat = +bfs/300;
 
                                                 var c = new THREE.Color();
@@ -74,9 +74,8 @@
                                             }
 
                                             return function (x, lng, lat, i) {
-                                                var bfs = $scope.lookupBFS(lng, lat);
+                                                var bfs = parseInt($scope.lookupBFS(lng, lat), 10);
                                                 var sat = +bfs/300;
-
                                                 var c = new THREE.Color();
                                                 c.setHSL(
                                                     (bfs === 0) ? 0.6 : ( (bfsStore[+bfs]* 0.05) + 0.35 - ( x * 0.5 ) ),
@@ -95,7 +94,7 @@
                                             }
 
                                             return function (x, lng, lat, i) {
-                                                var bfs = $scope.lookupBFS(lng, lat);
+                                                var bfs = parseInt($scope.lookupBFS(lng, lat), 10);
                                                 var sat = +bfs/300;
 
                                                 var c = new THREE.Color();
@@ -172,30 +171,30 @@
 
                 var switching = false;
                 $rootScope.$watch('state.mode', function (newMode, oldMode) {
-                    var newY;
+                    var y;
                     if (inited && newMode !== oldMode) {
                         switching = true;
 
                         switch(newMode) {
                             case 'scenario':
-                                newY = Math.ceil($rootScope.state.maxYearLimit - $rootScope.state.minYear);
-                                $scope.setTime($scope.globe, newY, maxYearT)();
+                                y = Math.ceil($rootScope.state.maxYearLimit - $rootScope.state.minYear);
+                                $scope.setTime($scope.globe, y, maxYearT)();
                                 $timeout(function () {
-                                    newY = Math.ceil(($rootScope.state.maxYearLimit - $rootScope.state.minYear) + ($rootScope.state.maxYear - $rootScope.state.maxYearLimit )/2);
+                                    y = Math.ceil(($rootScope.state.maxYearLimit - $rootScope.state.minYear) + ($rootScope.state.maxYear - $rootScope.state.maxYearLimit )/2);
                                     $rootScope.state.year = $rootScope.state.minYear + y;
-                                    $scope.setTime($scope.globe, newY, maxYearT, false)();
+                                    $scope.setTime($scope.globe, y, maxYearT, false)();
                                     switching = false;
                                 }, 550);
 
                                 break;
                             default:
-                                newY = Math.ceil(($rootScope.state.maxYearLimit - $rootScope.state.minYear) + ($rootScope.state.maxYear - $rootScope.state.maxYearLimit )/2);
-                                $scope.setTime($scope.globe, newY, maxYearT)();
+                                y = Math.ceil(($rootScope.state.maxYearLimit - $rootScope.state.minYear) + ($rootScope.state.maxYear - $rootScope.state.maxYearLimit )/2);
+                                $scope.setTime($scope.globe, y, maxYearT)();
 
                                 $timeout(function () {
-                                    var newY = $rootScope.state.maxYearLimit - $rootScope.state.minYear;
+                                    var y = $rootScope.state.maxYearLimit - $rootScope.state.minYear;
                                     $rootScope.state.year = $rootScope.state.maxYearLimit;
-                                    $scope.setTime($scope.globe, newY, maxYearT, false)();
+                                    $scope.setTime($scope.globe, y, maxYearT, false)();
                                     switching = false;
                                 }, 550);
 
@@ -205,13 +204,13 @@
                     } else {
                          switch(newMode) {
                             case 'scenario':
-                                newY = Math.ceil($rootScope.state.maxYearLimit - $rootScope.state.minYear);
-                                $scope.setTime($scope.globe, newY, maxYearT)();
+                                y = Math.ceil($rootScope.state.maxYearLimit - $rootScope.state.minYear);
+                                $scope.setTime($scope.globe, y, maxYearT)();
 
                                 break;
                             default:
-                                newY = Math.ceil(($rootScope.state.maxYearLimit - $rootScope.state.minYear) + ($rootScope.state.maxYear - $rootScope.state.maxYearLimit )/2);
-                                $scope.setTime($scope.globe, newY, maxYearT)();
+                                y = Math.ceil(($rootScope.state.maxYearLimit - $rootScope.state.minYear) + ($rootScope.state.maxYear - $rootScope.state.maxYearLimit )/2);
+                                $scope.setTime($scope.globe, y, maxYearT)();
 
                                 break;
                         }
@@ -221,8 +220,8 @@
 
                 $rootScope.$watch('state.year', _.throttle(function (newYear) {
                     if (inited && !switching) {
-                        var newY = Math.ceil(newYear - $rootScope.state.minYear);
-                        $scope.setTime($scope.globe, newY, maxYearT)();
+                        var y = Math.ceil(newYear - $rootScope.state.minYear);
+                        $scope.setTime($scope.globe, y, maxYearT)();
 
                     }
                 },250));
