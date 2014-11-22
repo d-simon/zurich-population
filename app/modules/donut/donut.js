@@ -9,7 +9,7 @@
                 },
                 controller: 'donutAreaController',
                 template: '<highchart config="donutConf" chart-obj="chartObj"></highchart>'
-            }
+            };
         })
         .controller('donutAreaController', ['$scope', '$rootScope', function ($scope, $rootScope) {
             $scope.chartObj = {};
@@ -193,7 +193,7 @@
                 },
                 controller: 'donutWhgController',
                 template: '<highchart config="donutConf" chart-obj="chartObj"></highchart>'
-            }
+            };
         })
         .controller('donutWhgController', ['$scope', '$rootScope', function ($scope, $rootScope) {
             $scope.chartObj = {};

@@ -125,10 +125,10 @@ DAT.Globe = function(container, opts) {
 
     var geometry = new THREE.SphereGeometry(1, 40, 30);
 
-    shader = Shaders['earth'];
+    shader = Shaders.earth;
     uniforms = THREE.UniformsUtils.clone(shader.uniforms);
 
-    uniforms['texture'].value = THREE.ImageUtils.loadTexture(imgDir+'world.jpg');
+    uniforms.texture.value = THREE.ImageUtils.loadTexture(imgDir+'world.jpg');
 
     material = new THREE.ShaderMaterial({
 
@@ -218,10 +218,10 @@ DAT.Globe = function(container, opts) {
     console.log(opts.format);
     if (opts.format === 'magnitude') {
       step = 3;
-      colorFnWrapper = function(data, i) { return colorFn(data[i+2], data[i+1], data[i], i); }
+      colorFnWrapper = function(data, i) { return colorFn(data[i+2], data[i+1], data[i], i); };
     } else if (opts.format === 'legend') {
       step = 4;
-      colorFnWrapper = function(data, i) { return colorFn(data[i+3], data[i+2], data[i+1], data[i], i); }
+      colorFnWrapper = function(data, i) { return colorFn(data[i+3], data[i+2], data[i+1], data[i], i); };
     } else {
       throw('error: format not supported: '+opts.format);
     }
@@ -329,7 +329,7 @@ DAT.Globe = function(container, opts) {
     }
 
     // Use new (r69) style to merge geometry
-    subgeo.merge(point.geometry, point.matrix)
+    subgeo.merge(point.geometry, point.matrix);
   }
 
 

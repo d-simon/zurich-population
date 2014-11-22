@@ -50,7 +50,6 @@
                     $rootScope.state.mode = 'scenario';
                     $rootScope.state.hideSidebar = true;
                     break;
-                case 'default':
                 default:
                     $rootScope.state.mode = 'default';
                     // $rootScope.state.year = $rootScope.getYear();
@@ -142,7 +141,7 @@
                 minYear = $rootScope.state.minYear;
             var year = Math.ceil(_.max([minYear, _.min([maxYear, $rootScope.state.year])]));
             return year;
-        }
+        };
 
 
         $rootScope.zoom = function (zoomValue) {
@@ -175,7 +174,7 @@
             return $rootScope.getIndicator(201);
         };
         $rootScope.getGemeindeName = function () {
-            return $rootScope.data.gemeindeList[$rootScope.state.gemeindeId]['GDENAME'] || '—';
+            return $rootScope.data.gemeindeList[$rootScope.state.gemeindeId].GDENAME || '—';
         };
 
 
@@ -183,7 +182,7 @@
             combo: 'w',
             description: 'Zoom',
             callback: function(event, hotkey) {
-                console.log('zoom out')
+                console.log('zoom out');
                 event.preventDefault();
                 $rootScope.zoom(-10);
             }
@@ -193,7 +192,7 @@
             combo: 's',
             description: 'Zoom',
             callback: function(event, hotkey) {
-                console.log('zoom in')
+                console.log('zoom in');
                 event.preventDefault();
                 $rootScope.zoom(10);
             }

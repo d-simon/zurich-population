@@ -19,7 +19,7 @@
 
         _.mixin({findDeep: function (obj, key) {
             function findNested (obj, key, memo) {
-                _.isArray(memo) || (memo = []);
+                if (!_.isArray(memo)) memo = [];
                 _.forOwn(obj, function(val, i) {
                     if (i === key) {
                         memo.push(val);
@@ -37,7 +37,7 @@
 
 
             function findNested (obj, key, val, memo) {
-                _.isArray(memo) || (memo = []);
+                if (!_.isArray(memo)) memo = [];
 
                 var isMatch = false;
 
@@ -68,7 +68,7 @@
 
                 level--;
 
-                _.isArray(memo) || (memo = []);
+                if (!_.isArray(memo)) memo = [];
 
                 var isMatch = false;
 
@@ -95,6 +95,6 @@
 
         }});
 
-    };
+    }
 
 })();

@@ -9,7 +9,7 @@
                 },
                 controller: 'timelineController',
                 template: '<highchart config="timelineConf" chart-obj="chartObj"></highchart>'
-            }
+            };
         })
         .controller('timelineController', ['$scope', '$rootScope', function ($scope, $rootScope) {
             $scope.chartObj = {};
