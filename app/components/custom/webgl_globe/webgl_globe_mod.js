@@ -94,7 +94,7 @@ DAT.Globe = function(container, opts) {
 
   var mouse = { x: 0, y: 0 }, mouseOnDown = { x: 0, y: 0 };
   var rotation = { x: 0, y: Math.PI * 0.125 },
-      target = { x: Math.PI*3/2, y: Math.PI / 6.0 },
+      target = { x: Math.PI*1/2, y: Math.PI / 3.0 },
       targetOnDown = { x: 0, y: 0 };
 
   var distance = opts.distanceTarget || 10000, distanceTarget = opts.distanceTarget || 500;
