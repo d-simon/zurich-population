@@ -24,11 +24,11 @@
                 options: {
                     chart: {
                         width: 400,
-                        height: 220,
+                        height: 240,
                         plotBackgroundColor: null,
                         plotBorderWidth: null,
                         plotShadow: false,
-                        margin: [0, 120, 0, 40],
+                        margin: [0, 0, 0, 0],
                         spacingTop: 0,
                         spacingBottom: 0,
                         spacingLeft: 0,
@@ -38,13 +38,13 @@
                         enabled: false
                     },
                     legend: {
-                        align: 'right',
+                        align: 'left',
                         borderWidth: 0,
                         layout: 'vertical',
                         itemMarginTop: 7,
                         itemMarginBottom: 7,
                         verticalAlign: 'top',
-                        x: -10,
+                        x: 240,
                         y: 30,
                         floating: false,
                         itemStyle: {
@@ -62,9 +62,9 @@
                     plotOptions: {
                         pie: {
 
-                            innerSize: '50%',
-                            size: '65%',
-                            center: ['38%'],
+                            innerSize: '60%',
+                            size: '80%',
+                            center: ['22%'],
 
                             borderWidth: 0,
                             showInLegend: true,
@@ -76,18 +76,18 @@
                                 }
                             },
                             dataLabels: {
-                                connectorWidth: 1
+                                connectorWidth: 0
                             }
                         },
                         series: {
                             dataLabels: {
-                                enabled: true,
+                                enabled: false,
                                 borderRadius: 0,
                                 backgroundColor: 'rgba(255, 255, 255, 0.0)',
                                 borderWidth: 0,
                                 borderColor: '#FFF',
-                                connectorWidth: 1, // hide the connector
-                                distance: 10,
+                                connectorWidth: 0, // hide the connector
+                                distance: 2,
                                 y: 0,
                                 x: 0,
                                 useHTML: true,
@@ -212,7 +212,7 @@
                         plotBackgroundColor: null,
                         plotBorderWidth: null,
                         plotShadow: false,
-                        margin: [0, 120, 0, 40],
+                        margin: [0, 0, 0, 0],
                         spacingTop: 0,
                         spacingBottom: 0,
                         spacingLeft: 0,
@@ -222,13 +222,13 @@
                         enabled: false
                     },
                     legend: {
-                        align: 'right',
+                        align: 'left',
                         borderWidth: 0,
                         layout: 'vertical',
                         itemMarginTop: 7,
                         itemMarginBottom: 7,
                         verticalAlign: 'top',
-                        x: -10,
+                        x: 240,
                         y: 20,
                         floating: false,
                         itemStyle: {
@@ -246,9 +246,9 @@
                     plotOptions: {
                         pie: {
 
-                            innerSize: '50%',
-                            size: '65%',
-                            center: ['38%'],
+                            innerSize: '60%',
+                            size: '80%',
+                            center: ['22%'],
 
                             borderWidth: 0,
                             showInLegend: true,
@@ -260,18 +260,18 @@
                                 }
                             },
                             dataLabels: {
-                                connectorWidth: 1
+                                connectorWidth: 0
                             }
                         },
                         series: {
                             dataLabels: {
-                                enabled: true,
+                                enabled: false,
                                 borderRadius: 0,
                                 backgroundColor: 'rgba(255, 255, 255, 0.0)',
                                 borderWidth: 0,
                                 borderColor: '#FFF',
-                                connectorWidth: 1, // hide the connector
-                                distance: 10,
+                                connectorWidth: 0, // hide the connector
+                                distance: 2,
                                 y: 0,
                                 x: 0,
                                 useHTML: true,
