@@ -114,7 +114,7 @@
                             // invert: 'x',
                             distanceTarget: 320,
                             zoomDisabled: true,
-                            pointSize: 1,
+                            pointSize: 0.8,
                             colorFn: colorFunctions.greenHillsGreyBlocksBlueLakes
                         });
                     }

@@ -11,8 +11,8 @@
     <div ng-app="zuriPopApp">
         <main class="main">
             <header class="header">
-                <h1 class="header-title">Zurich Population</h1>
-                <nav class="scenarioNav" style="position:absolute; z-index: 10;">
+                <h1 class="header-title">Zuri Pop</h1>
+                <nav class="scenarioNav fade" style="position:absolute; z-index: 10;" ng-if="!state.enableToggle || (state.enableToggle && state.toggle.chartButtons)">
                     <span class="scenarioNav-btn" ng-click="switchMode('default')"  ng-class="{'active': state.mode == 'default'}">Geschichte</span>
                     <span class="scenarioNav-btn" ng-click="switchMode('scenario')" ng-class="{'active': state.mode == 'scenario'}">Scenario</span>
                     <br>
@@ -22,13 +22,22 @@
                     <br>
                 </nav>
             </header>
-            <div globe globe-year="year" class="mapViewer"></div>
-            <aside class="sidebar" ng-class="{'is-hidden': state.hideSidebar}">
+            <div ng-if="!state.enableToggle || (state.enableToggle && state.toggle.globe)">
+                <div globe globe-year="year" class="mapViewer"></div>
+            </div>
+            <div ng-if="!state.enableToggle || (state.enableToggle && state.toggle.introMessage)" class="intro-message fade">
+                Wie viele Personen haben <b>Platz im Kanton Zürich</b>?<br>
+                Wie hat sich die <b>Bevölkerungsdichte</b> entwickelt?<br>
+                Was bedeutet <b>innere Verdichtung</b>?<br>
+                Wie sieht <b>Einfamilienhaus-Politik</b> aus?
+                <div class="intro-message intro-message__arrow"></div>
+            </div>
+            <aside class="sidebar fade" ng-if="!state.enableToggle || (state.enableToggle && !state.toggle.introMessage)" ng-class="{'is-hidden': state.hideSidebar}">
                 <div class="timeline">
                     <timeline></timeline>
                 </div>
                 <div class="region">
-                    <div class="region-info">
+                    <div class="region-info fade" ng-show="!state.enableToggle || (state.enableToggle && state.toggle.sidebarRegion)">
                         <h2 class="region-title">{{ getGemeindeName() }}</h2>
                         <div class="region-detail">
                             <dl class="margins-removed">
@@ -41,19 +50,19 @@
                             </dl>
                         </div>
                     </div>
-                    <div class="region-map">
-                    <br><br>
+                    <div class="region-map fade" ng-show="!state.enableToggle || (state.enableToggle && state.toggle.sidebarRegion)">
+                        <br><br>
                         <select ng-model="state.gemeindeId" ng-options="gemeinde.GDENR as gemeinde.GDENAME for gemeinde in data.gemeindeList | orderObjectBy:'GDENAME':false">
                           <option value="">-- Gemeinde wählen --</option>
                         </select>
                     </div>
-                    <div class="region-chart chart">
+                    <div class="region-chart chart fade" ng-show="!state.enableToggle || (state.enableToggle && state.toggle.sidebarChartArea)">
                         <h3 class="chart-title">Flächenverteilung</h3>
                         <div class="chart-container">
                             <donut-area donutData="data.areaData"></donut-area>
                         </div>
                     </div>
-                    <div class="region-chart chart">
+                    <div class="region-chart chart fade"  ng-show="!state.enableToggle || (state.enableToggle && state.toggle.sidebarChartWhg)">
                         <h3 class="chart-title">Wohnungsverteilung</h3>
                         <div class="chart-container">
                             <donut-whg donutData="data.whgData"></donut>
@@ -75,7 +84,7 @@
                 </div>
                 <br>
             </div>
-            <footer class="footer">
+            <footer class="footer fade" ng-if="!state.enableToggle || (state.enableToggle && !state.toggle.introMessage)">
                 <span class="footer-info">ZHdK 2014</span>
                 <span class="footer-info"><b class="footer-info--label">Source</b> Statistisches Amt des Kt. Zürich, Hektardaten Bev. 2010/BA für Statistik, eidg. Volkszählungen 1990 und 2000</span>
             </footer>

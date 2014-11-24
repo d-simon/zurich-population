@@ -14,6 +14,9 @@ body
     font-weight: $font-weight-base
     color: $font-color-default
 
+b
+    font-weight: $font-weight-bold
+
 main
     padding-right: $sidebar-width
 
@@ -90,8 +93,78 @@ main
         position: relative
         top: -17px
 
+.header
+    min-width: 300px
 
 .chart-title
     @include font-base-bold()
     font-weight: 400
     margin-top: 40px
+
+.intro-message
+    font-size: $font-size-h1
+    font-weight: $font-weight-headings
+    line-height: $line-height-headings+0.2
+    text-align: center
+    display: block
+    width: 100%
+    position: absolute
+    top: 50%
+    margin-top: -($font-size-h1*$line-height-headings*4)
+
+// --- ng-show/hide
+
+.fade
+    -webkit-transition: 0.5s linear all
+    -moz-transition: 0.5s linear all
+    -o-transition: 0.5s linear all
+    transition: 0.5s linear all
+    opacity: 1
+
+.fade.ng-hide
+    opacity: 0
+
+// --- ng-if
+
+.fade.ng-enter, .fade.ng-move
+    -webkit-transition: 0.5s linear all
+    -moz-transition: 0.5s linear all
+    -o-transition: 0.5s linear all
+    transition: 0.5s linear all
+    opacity: 0
+
+
+.fade.ng-enter.ng-enter-active,
+.fade.ng-move.ng-move-active
+    opacity: 1
+
+.fade.ng-leave
+    -webkit-animation: 0.5s fade
+    -moz-animation: 0.5s fade
+    -o-animation: 0.5s fade
+    animation: 0.5s fade
+
+@keyframes fade
+    from
+        opacity: 1
+    to
+        opacity: 0
+
+
+@-webkit-keyframes fade
+    from
+        opacity: 1
+    to
+        opacity: 0
+
+@-moz-keyframes fade
+    from
+        opacity: 1
+    to
+        opacity: 0
+
+@-o-keyframes fade
+    from
+        opacity: 1
+    to
+        opacity: 0

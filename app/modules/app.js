@@ -2,6 +2,7 @@
     'use strict';
 
     angular.module('zuriPopApp', [
+        'ngAnimate',
         'highcharts-ng',
         'cfp.hotkeys',
 
@@ -39,7 +40,16 @@
             maxYear: 2031,
             gemeindeId: 261,  // false|int             BFS-ID
             hideSidebar: false,
-            mode: 'default'   // 'default'|'scenario'  Map Mode
+            mode: 'default',   // 'default'|'scenario'  Map Mode
+            enableToggle: true,
+            toggle: {
+                introMessage: true,
+                globe: false,
+                chartButtons: false,
+                sidebarRegion: false,
+                sidebarChartArea: false,
+                sidebarChartWhg: false
+            }
         };
         $rootScope.data = {
             gemeindeList: dataService.getGemeindeList()
@@ -59,34 +69,29 @@
 
         dataService.getGemeindeKeys()
             .success(function successCallback (data) {
-                console.log(data);
+                // console.log(data);
                 $rootScope.areaData = data;
             });
 
-        dataService.getPopulationKanton()
-            .success(function successCallback (data) {
-                console.log(data);
-            });
+        // dataService.getPopulationKanton()
+        //     .success(function successCallback (data) {
+        //         // console.log(data);
+        //     });
 
-        dataService.getPopulationGemeinden()
-            .success(function successCallback (data) {
-                console.log(data);
-            });
+        // dataService.getPopulationGemeinden()
+        //     .success(function successCallback (data) {
+        //         // console.log(data);
+        //     });
 
         dataService.getAdditionalSidebarInfo()
             .success(function successCallback (data) {
-                console.log(data);
+                // console.log(data);
                 $rootScope.data.sidebar = data;
-
-                // "133": "Bevölkerung" [Personen],
-                // "460": "Bevölkerungsdichte [Einwohner pro Quadratkilometer]",
-                // "200": "Bevölkerungszunahme 1 Jahr [Personen]",
-                // "201": "Bevölkerungszunahme 1 Jahr [%]",
 
             });
         dataService.getAreaWhgDaten()
             .success(function successCallback (data) {
-                console.log(data);
+                // console.log(data);
 
 
                 var areaData = {},
@@ -195,6 +200,57 @@
                 console.log('zoom in');
                 event.preventDefault();
                 $rootScope.zoom(10);
+            }
+        });
+
+        hotkeys.add({
+            combo: '1',
+            description: 'Toggle IntroMessage',
+            callback: function(event, hotkey) {
+                $rootScope.state.toggle.introMessage = !$rootScope.state.toggle.introMessage;
+            }
+        });
+        hotkeys.add({
+            combo: '2',
+            description: 'Region',
+            callback: function(event, hotkey) {
+                $rootScope.state.toggle.sidebarRegion = !$rootScope.state.toggle.sidebarRegion;
+            }
+        });
+        hotkeys.add({
+            combo: '3',
+            description: 'Region Chart Area',
+            callback: function(event, hotkey) {
+                $rootScope.state.toggle.sidebarChartArea = !$rootScope.state.toggle.sidebarChartArea;
+            }
+        });
+        hotkeys.add({
+            combo: '4',
+            description: 'Region Chart Whg',
+            callback: function(event, hotkey) {
+                $rootScope.state.toggle.sidebarChartWhg = !$rootScope.state.toggle.sidebarChartWhg;
+            }
+        });
+        hotkeys.add({
+            combo: '5',
+            description: 'Buttons',
+            callback: function(event, hotkey) {
+                $rootScope.state.toggle.chartButtons = !$rootScope.state.toggle.chartButtons;
+            }
+        });
+
+        hotkeys.add({
+            combo: 'g',
+            description: 'Toggle Globe',
+            callback: function(event, hotkey) {
+                $rootScope.state.toggle.globe = !$rootScope.state.toggle.globe;
+            }
+        });
+        hotkeys.add({
+            combo: 'b',
+            description: 'Sidebar',
+            callback: function(event, hotkey) {
+                $rootScope.state.hideSidebar = !$rootScope.state.hideSidebar;
             }
         });
 

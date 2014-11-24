@@ -26,6 +26,7 @@ var sources = {
             'app/components/bower/lodash/dist/lodash.js',
             'app/components/bower/jquery-mousewheel/jquery.mousewheel.js',
             'app/components/bower/angular/angular.js',
+            'app/components/bower/angular-animate/angular-animate.js',
             'app/components/bower/angular-hotkeys/build/hotkeys.js',
             'app/components/bower/tweenjs/build/tween.min.js',
             'app/components/bower/threejs/build/three.min.js',
