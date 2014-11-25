@@ -85,7 +85,7 @@ gulp.task('connect', function() {
 
 gulp.task('html', function() {
   return gulp.src('app/*.html')
-    .pipe(gulpif(env === 'production', minifyHTML()))
+    .pipe(gulpif(env === 'production', minifyHTML({ empty: true, spare: true })))
     .pipe(gulp.dest(outputDir))
     .pipe(connect.reload())
 });
@@ -103,7 +103,7 @@ gulp.task('images', function() {
 
 gulp.task('json', function() {
   return gulp.src('app/data/**/*.json')
-    .pipe(gulpif(env === 'production', jsonminify()))
+    // .pipe(gulpif(env === 'production', jsonminify()))
     .pipe(gulp.dest(outputDir + 'data'))
     .pipe(connect.reload())
 });
