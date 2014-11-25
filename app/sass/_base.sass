@@ -41,6 +41,10 @@ main
 
     &--arrow
         background: url('../media/icons/button-arrow.svg') no-repeat center center
+    &--arrow-down
+        background: url('../media/icons/button-arrow.svg') no-repeat center center
+        transform: rotateZ(90deg)
+
 
     &--house-1
         background: url('../media/icons/button-house-1.svg') no-repeat center center
@@ -111,6 +115,13 @@ main
     position: absolute
     top: 50%
     margin-top: -($font-size-h1*$line-height-headings*4)
+
+    &__arrow
+        display: inline-block
+        padding-top: 100px
+        width: 70px
+        height: 70px
+        cursor: pointer
 
 // --- ng-show/hide
 
